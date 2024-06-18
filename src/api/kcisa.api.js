@@ -12,9 +12,9 @@ export const kcisaApi = {
    */
   async getShows(museum) {
     const res = await axiosInstance.get();
-    const shows = await res.data.response.body.items.item;
-
+    const shows = res.data.response.body.items.item;
     const filteredShows = shows.filter((show) => show.CNTC_INSTT_NM.includes(museum));
+    console.log(filteredShows);
     return filteredShows;
   }
 };
