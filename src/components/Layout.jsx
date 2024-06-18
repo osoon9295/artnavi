@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logoImage from '../logo/artnavi.png';
 import { useEffect } from 'react';
-import CardList from './ExhibitList';
+import CardList from './Main/ExhibitList';
 import axios from 'axios';
 
 const weatherAPIKey = "a42d7ee85839a67d4fe350775f82d621";
@@ -9,15 +9,15 @@ const weatherAPIKey = "a42d7ee85839a67d4fe350775f82d621";
 export default function Map() {
 const [weather, setWeather] = useState({})
   
-  useEffect(() => {
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3
-    };
+  // useEffect(() => {
+  //   const container = document.getElementById('map');
+  //   const options = {
+  //     center: new kakao.maps.LatLng(33.450701, 126.570667),
+  //     level: 3
+  //   };
 
-    const map = new kakao.maps.Map(container, options);
-  }, []);
+  //   const map = new kakao.maps.Map(container, options);
+  // }, []);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {

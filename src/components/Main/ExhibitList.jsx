@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { kcisaApi } from '../api/kcisa.api';
-import useShowStore from '../zustand/store';
+import { kcisaApi } from '../../api/kcisa.api';
+import useShowStore from '../../zustand/store';
 
 const CardList = () => {
   const { setShows, shows: zustandShows } = useShowStore();
