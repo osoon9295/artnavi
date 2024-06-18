@@ -27,14 +27,34 @@ function ShowDetail() {
 
   //2. 전시회 정보 적절하게 표시하기
   return (
-    <section>
-      <div>주최 박물관: {institutionName}</div>
-      <div>전시 위치: {eventSite}</div>
-      <div>전시 제목: {showTitle}</div>
-      <div>전시 기간: {eventPeriod}</div>
-      <div>설명: {description}</div>
-      <div>포스터: {postImgUrl}</div>
-      <div>공식 URL : {officialUrl}</div>
+    <section className="block">
+      <div className="mb-4 text-xl">전시 제목: {showTitle}</div>
+
+      <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
+
+      <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
+        <h3 className="text-lg">
+          주최
+          <br />
+          {institutionName}
+        </h3>
+        <p>
+          전시 위치
+          <br />
+          {eventSite}
+        </p>
+        <p>
+          전시 기간
+          <br />
+          {eventPeriod}
+        </p>
+      </div>
+
+      <p className="mt-4 text-lg">{description}</p>
+      <a href={officialUrl} target="blank" className="float-right ">
+        공식홈페이지 바로가기
+      </a>
+      <div className="clear-both"></div>
     </section>
   );
 }
