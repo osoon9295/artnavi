@@ -22,6 +22,7 @@ export default function BasicMap() {
       if(status === kakao.maps.services.Status.OK) {
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
+        let places = [];
 
         for (let i = 0; i < data.length; i++) {
           markers.push({
@@ -30,6 +31,10 @@ export default function BasicMap() {
               lng: data[i].x,
             },
             content: data[i].place_name,
+          });
+          places.push({
+            name: data[i].place_name,
+            address: data[i].address_name,
           })
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
         }
@@ -58,10 +63,18 @@ export default function BasicMap() {
               placeholder="키워드 입력"
               className="w-full p-2 mb-2 border"
             />
-            <button type="submit" className="w-full p-2 text-white bg-blue-500">
+            <button type="submit" className="w-full p-3 text-white bg-blue-500">
               검색
             </button>
           </form>
+          <div className="max-h-[500px] overflow-y-auto">
+            {places.map((place, index) => (
+              <div key = {index} className="p-2 mt-2 border-b">
+                <div>{place.name}</div>
+                <div>{place.address}</div>
+              </div>
+            ))}
+          </div>
         </div>
         <div>
           <Map
