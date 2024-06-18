@@ -404,6 +404,11 @@
   dependencies:
     "@swc/core" "^1.5.7"
 
+"@yoojinyoung/usescrolllock@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@yoojinyoung/usescrolllock/-/usescrolllock-1.1.4.tgz#0526d80a95cc6df9e7ad94e07ab9c2f3699c627b"
+  integrity sha512-aCHQqa4GSK3hb+eL3ZvHSyAIh7JvZacqOMKZu2EXJ7gifDYCjcxu7/+oesuScYf1OxEc5Qr9dZKQYL41//+cbA==
+
 ansi-regex@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
