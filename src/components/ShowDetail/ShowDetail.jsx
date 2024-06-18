@@ -14,6 +14,17 @@ const dummyData = {
 function ShowDetail() {
   //1. Zustand에서 전시회 정보 읽어오기
   //const showInfo = useShowStore(state => state.showInfo);
+  /*
+  const {
+    CNTC_INSTT_NM: institutionName,
+    EVENT_SITE: eventSite,
+    TITLE: showTitle,
+    EVENT_PERIOD: eventPeriod,
+    DESCRIPTION: description,
+    IMAGE_OBJECT: postImgUrl,
+    URL: officialUrl
+  } = showInfo;
+  */
 
   const {
     CNTC_INSTT_NM: institutionName,
