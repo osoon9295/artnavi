@@ -44,10 +44,10 @@ export default function BasicMap() {
         <div className="w-[320px] h-[920px] bg-amber-200">
           <img src={logoImage}></img>
         </div>
-        <div>
+        <div className="relative">
           <Map // 지도를 표시할 Container
             id="map"
-            className="w-[1120px] h-[920px] relative overflow-hidden"
+            className="w-[1120px] h-[920px] overflow-hidden"
             center={{
               // 지도의 중심좌표
               lat: 37.564214,
@@ -55,21 +55,6 @@ export default function BasicMap() {
             }}
             onCreate={setMap}
           >
-            <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
-              <div className="text-center">
-                <div>
-                  <form>
-                    키워드 : <input type="text" size="15" className="p-1 border" />
-                    <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
-                      검색하기
-                    </button>
-                  </form>
-                </div>
-              </div>
-              <hr className="my-3 border-t-2" />
-              <ul>대림 미술관</ul>
-              <div className="my-3 text-center ">서울 종로구 자하문로 4길 21</div>
-            </div>
             {markers.map((marker) => (
               <MapMarker
                 key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
@@ -80,6 +65,21 @@ export default function BasicMap() {
               </MapMarker>
             ))}
           </Map>
+          <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
+            <div className="text-center">
+              <div>
+                <form>
+                  키워드 : <input type="text" size="15" className="p-1 border" />
+                  <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
+                    검색하기
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr className="my-3 border-t-2" />
+            <ul>대림 미술관</ul>
+            <div className="my-3 text-center ">서울 종로구 자하문로 4길 21</div>
+          </div>
         </div>
       </div>
     </>
