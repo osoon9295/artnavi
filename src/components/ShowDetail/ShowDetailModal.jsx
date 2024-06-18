@@ -9,8 +9,14 @@ function ShowDetailModal() {
     modal.close();
   }
 
+  function handleOutsideModalAreaClick(e) {
+    if (e.target === e.currentTarget) {
+      modal.close();
+    }
+  }
+
   return (
-    <BackDrop>
+    <BackDrop onClick={handleOutsideModalAreaClick}>
       <div className="flex flex-col items-center  pr-20 pl-20 pt-14 pb-10 bg-white rounded w-[800px] min-h-[660px] h-fit ">
         <ShowDetail />
         <button onClick={handleCloseButtonClick} className="w-full mt-5 ml-auto mr-auto">
