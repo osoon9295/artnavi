@@ -1,16 +1,19 @@
-import { QueryClientProvider } from '@tanstack/react-query';
+
 import React from 'react';
-import Map from './components/Map';
+import { kcisaApi } from './api/kcisa.api';
+import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from './query-client/queryClient';
-import { useStore } from './zustand/store';
+import BasicMap from './components/BasicMap';
+
 
 const App = () => {
   const { showInfo } = useStore();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Map />
+     <BasicMap />
     </QueryClientProvider>
+
   );
 };
 
