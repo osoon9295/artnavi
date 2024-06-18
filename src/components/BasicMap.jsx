@@ -1,5 +1,5 @@
 import { Map } from 'react-kakao-maps-sdk';
-import logoImage from '../logo/artnavi.png';
+import logoImage from '/logo/artnavi.png';
 
 export default function BasicMap() {
   return (
