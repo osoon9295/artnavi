@@ -1,3 +1,5 @@
+import useShowStore from '../../zustand/store';
+
 const dummyData = {
   CNTC_INSTT_NM: '국립공주박물관',
   EVENT_SITE: '국립공주박물관 전시동 1층 복도',
@@ -11,8 +13,8 @@ const dummyData = {
 
 function ShowDetail() {
   //1. Zustand에서 전시회 정보 읽어오기
+  //const showInfo = useShowStore(state => state.showInfo);
 
-  //2. 전시회 정보 적절하게 표시하기
   const {
     CNTC_INSTT_NM: institutionName,
     EVENT_SITE: eventSite,
@@ -23,6 +25,7 @@ function ShowDetail() {
     URL: officialUrl
   } = dummyData;
 
+  //2. 전시회 정보 적절하게 표시하기
   return (
     <section>
       <div>주최 박물관: {institutionName}</div>
