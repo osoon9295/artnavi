@@ -7,7 +7,6 @@ import BasicMap from './components/BasicMap';
 
 
 const App = () => {
-  const { showInfo } = useStore();
 
   return (
     <QueryClientProvider client={queryClient}>
