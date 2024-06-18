@@ -1,104 +1,85 @@
+import MapAside from './Main/MapAside';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import logoImage from '../logo/artnavi.png';
-import useKakaoLoader from './UseKakaoLoader';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
 export default function BasicMap() {
-  useKakaoLoader();
-
-  const [info, setInfo] = useState(null); 
+  useKaKaoLoader();
+  const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
-  const [map, setMap] = useState(null);
-  const [keyword, setKeyword] = useState("서울 미술관");
-  const [places, setPlaces] = useState([]);
+  const [map, setMap] = useState();
 
   useEffect(() => {
-    if(!map) return; 
-
+    if (!map) return;
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch("서울 미술관", (data, status, _pagination) => {
-      if(status === kakao.maps.services.Status.OK) {
+    ps.keywordSearch('서울 미술관', (data, status, _pagination) => {
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
-        let places = [];
 
         for (let i = 0; i < data.length; i++) {
+          // @ts-ignore
           markers.push({
             position: {
               lat: data[i].y,
-              lng: data[i].x,
+              lng: data[i].x
             },
-            content: data[i].place_name,
+            content: data[i].place_name
           });
-          places.push({
-            name: data[i].place_name,
-            address: data[i].address_name,
-          })
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
+          // @ts-ignore
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         setMarkers(markers);
-        map.setBounds(bounds);
-        setPlaces(places);
-      }
-    })
-  }, [map, keyword]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const keywordInput = e.target.keyword.value;
-    setKeyword(keywordInput);
-  }
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+      }
+    });
+  }, [map]);
 
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
-        <div className="w-[320px] h-[920px] bg-amber-200">
-          <img src={logoImage} alt="logo" className="mb-4"/>
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              name="keyword"
-              placeholder="키워드 입력"
-              className="w-full p-2 mb-2 border"
-            />
-            <button type="submit" className="w-full p-3 text-white bg-blue-500">
-              검색
-            </button>
-          </form>
-          <div className="max-h-[250px] overflow-y-auto bg-white">
-            {places.map((place, index) => (
-              <div key = {index} className="p-2 mt-2 border-b ">
-                <div className="p-2 mb-2 border border-black rounded-md">{place.name}</div>
-                <div className="text-yellow-600">{place.address}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <Map
+        <MapAside />
+        <div className="relative">
+          <Map // 지도를 표시할 Container
             id="map"
-            className="w-[1120px] h-[920px]"
-            level={3}
-            onCreate={setMap}
+            className="w-[1120px] h-[920px] overflow-hidden"
             center={{
               lat: 37.564214,
               lng: 127.001699
             }}
+            onCreate={setMap}
           >
-             {markers.map((marker) => (
-        <MapMarker
-          key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-          position={marker.position}
-          onClick={() => setInfo(marker)}
-        >
-          {info &&info.content === marker.content && (
-            <div style={{color:"#000"}}>{marker.content}</div>
-          )}
-        </MapMarker>
-      ))}
-    </Map>
+            {markers.map((marker) => (
+              <MapMarker
+                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+                position={marker.position}
+                onClick={() => setInfo(marker)}
+              >
+                {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
+              </MapMarker>
+            ))}
+          </Map>
+          <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
+            <div className="text-center">
+              <div>
+                <form>
+                  키워드 : <input type="text" size="15" className="p-1 border" />
+                  <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
+                    검색하기
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr className="my-3 border-t-2" />
+            <ul>대림 미술관</ul>
+            <div className="my-3 text-center ">서울 종로구 자하문로 4길 21</div>
+          </div>
+
         </div>
       </div>
     </>
