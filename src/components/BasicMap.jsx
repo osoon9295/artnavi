@@ -1,8 +1,10 @@
 import MapAside from './Main/MapAside';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
+import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
 export default function BasicMap() {
+  useKaKaoLoader();
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();

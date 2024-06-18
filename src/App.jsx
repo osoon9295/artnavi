@@ -8,7 +8,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       {/* <OnlyLayout /> */}
-      <BasicMap />
+      <BasicMap/>
     </QueryClientProvider>
   );
 };
