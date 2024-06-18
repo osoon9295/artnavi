@@ -8,7 +8,7 @@ const useShowStore = create(
       /**
        * @param {shows[]} shows 전시 목록 입력
        */
-      setShows: (shows) => set((state) => ({ shows: [...state.shows, shows] })),
+      setShows: (shows) => set((state) => (state.shows = [...shows])),
 
       showInfo: {},
       /**

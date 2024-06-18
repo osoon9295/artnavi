@@ -5,15 +5,12 @@ import './index.css';
 import './reset.css';
 
 //Modal 관련
-import { ScrollLockProvider } from '@yoojinyoung/usescrolllock';
 import ModalProvider from './contexts/modal.context.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ScrollLockProvider>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
-    </ScrollLockProvider>
+    <ModalProvider>
+      <App />
+    </ModalProvider>
   </React.StrictMode>
 );
