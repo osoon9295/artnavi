@@ -1,10 +1,10 @@
 import React from 'react';
-import Map from './components/Map';
+import BasicMap from './components/BasicMap';
 
 const App = () => {
   return (
     <div>
-      <Map />
+      <BasicMap />
     </div>
   );
 };
