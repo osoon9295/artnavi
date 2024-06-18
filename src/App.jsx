@@ -7,8 +7,9 @@ import BasicMap from './components/BasicMap';
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BasicMap />
+     <BasicMap />
     </QueryClientProvider>
+
   );
 };
 

@@ -1,26 +1,25 @@
-import React from 'react';
-import logoImage from '../logo/artnavi.png';
 import { Map } from 'react-kakao-maps-sdk';
-import useKakaoLoader from './KakaoLoader';
+import logoImage from '../logo/artnavi.png';
 
-function BasicMap() {
-  useKakaoLoader();
-
+export default function BasicMap() {
   return (
-    <Map
-      id="map"
-      center={{
-        lat: 37.564214,
-        lng: 127.001699,
-      }}
-      style={{
-        // 지도의 크기
-        width: "100%",
-        height: "350px",
-      }}
-      level={3} // 지도의 확대 레벨
-    />
-  )
+    <>
+      <div className="w-[1440px] h-[920px] flex m-auto">
+        <div className="w-[320px] h-[920px] bg-amber-200">
+          <img src={logoImage}></img>
+        </div>
+        <div>
+          <Map // 지도를 표시할 Container
+            id="map"
+            className="w-[1120px] h-[920px]"
+            center={{
+              // 지도의 중심좌표
+              lat: 37.564214,
+              lng: 127.001699
+            }}
+          />
+        </div>
+      </div>
+    </>
+  );
 }
-
-export default BasicMap;
