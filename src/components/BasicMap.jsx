@@ -5,6 +5,7 @@ import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
 export default function BasicMap() {
   useKaKaoLoader();
+
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
@@ -79,7 +80,6 @@ export default function BasicMap() {
             <ul>대림 미술관</ul>
             <div className="my-3 text-center ">서울 종로구 자하문로 4길 21</div>
           </div>
-
         </div>
       </div>
     </>
