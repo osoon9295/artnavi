@@ -1,6 +1,6 @@
 import { useScrollLock } from '@yoojinyoung/usescrolllock';
 import { createContext, useContext, useState } from 'react';
-import MuseumDetail from './../components/MuseumDetail';
+import MuseumDetail from './../components/MuseumDetail/MuseumDetail';
 
 const initalValue = {
   open: () => {},
