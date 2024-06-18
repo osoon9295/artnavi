@@ -1,6 +1,6 @@
 import { useScrollLock } from '@yoojinyoung/usescrolllock';
 import { createContext, useContext, useState } from 'react';
-import MuseumDetail from './../components/MuseumDetail';
+import ShowDetail from '../components/ShowDetail/ShowDetail';
 
 const initalValue = {
   open: () => {},
@@ -29,7 +29,7 @@ function ModalProvider({ children }) {
   return (
     <ModalContext.Provider value={value}>
       {children}
-      {isModalOpen && <MuseumDetail />}
+      {isModalOpen && <ShowDetail />}
     </ModalContext.Provider>
   );
 }
