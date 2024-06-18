@@ -11,9 +11,11 @@ function ShowDetailModal() {
 
   return (
     <BackDrop>
-      <div className="w-full p-10 bg-white rounded max-w-80">
+      <div className="pr-10 pl-10 pt-10 pb-5 bg-white rounded w-[600px] min-h-[600px]">
         <ShowDetail />
-        <button onClick={handleCloseButtonClick}>닫기</button>
+        <button onClick={handleCloseButtonClick} className="w-full mt-5 ml-auto mr-auto">
+          닫기
+        </button>
       </div>
     </BackDrop>
   );
