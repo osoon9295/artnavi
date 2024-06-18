@@ -1,7 +1,43 @@
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import logoImage from '../logo/artnavi.png';
+import { useEffect, useState } from 'react';
 
 export default function BasicMap() {
+  const [info, setInfo] = useState();
+  const [markers, setMarkers] = useState([]);
+  const [map, setMap] = useState();
+
+  useEffect(() => {
+    if (!map) return;
+    const ps = new kakao.maps.services.Places();
+
+    ps.keywordSearch('서울 미술관', (data, status, _pagination) => {
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        const bounds = new kakao.maps.LatLngBounds();
+        let markers = [];
+
+        for (let i = 0; i < data.length; i++) {
+          // @ts-ignore
+          markers.push({
+            position: {
+              lat: data[i].y,
+              lng: data[i].x
+            },
+            content: data[i].place_name
+          });
+          // @ts-ignore
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        }
+        setMarkers(markers);
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+      }
+    });
+  }, [map]);
+
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -17,7 +53,18 @@ export default function BasicMap() {
               lat: 37.564214,
               lng: 127.001699
             }}
-          />
+            onCreate={setMap}
+          >
+            {markers.map((marker) => (
+              <MapMarker
+                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+                position={marker.position}
+                onClick={() => setInfo(marker)}
+              >
+                {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
+              </MapMarker>
+            ))}
+          </Map>
         </div>
       </div>
     </>
