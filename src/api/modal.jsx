@@ -1,5 +1,5 @@
-function openExhibitDetailModal() {}
+async function openExhibitDetailModal() {}
 
 function closeExhibitDetailModal() {}
 
-export { openExhibitDetailModal, closeExhibitDetailModal };
+export { closeExhibitDetailModal, openExhibitDetailModal };
