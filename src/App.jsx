@@ -1,11 +1,14 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import BasicMap from './components/BasicMap';
+import OnlyLayout from './components/OnlyLayout';
+import queryClient from './query-client/queryClient';
 
 const App = () => {
   return (
-    <div>
-      <BasicMap />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <OnlyLayout />
+      {/* <OnBasicMap /> */}
+    </QueryClientProvider>
   );
 };
 
