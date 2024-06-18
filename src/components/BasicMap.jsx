@@ -11,6 +11,7 @@ export default function BasicMap() {
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState(null);
   const [keyword, setKeyword] = useState("서울 미술관");
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
     if(!map) return; 
@@ -34,15 +35,33 @@ export default function BasicMap() {
         }
         setMarkers(markers);
         map.setBounds(bounds);
+        setPlaces(places);
       }
     })
   }, [map, keyword]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const keywordInput = e.target.keyword.value;
+    setKeyword(keywordInput);
+  }
 
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
         <div className="w-[320px] h-[920px] bg-amber-200">
-          <img src={logoImage}></img>
+          <img src={logoImage} alt="logo" className="mb-4"/>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              name="keyword"
+              placeholder="키워드 입력"
+              className="w-full p-2 mb-2 border"
+            />
+            <button type="submit" className="w-full p-2 text-white bg-blue-500">
+              검색
+            </button>
+          </form>
         </div>
         <div>
           <Map
