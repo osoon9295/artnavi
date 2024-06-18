@@ -18,8 +18,17 @@ export default function Map() {
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
         <div className="w-[320px] h-[920px] bg-amber-200">
-          <img src={logoImage}></img>
+          <header>
+            <img src={logoImage}></img>
+            <div>
+              <span>현재 날씨</span>
+              <span>온도</span>
+            </div>
+          </header>
           <CardList />
+          <footer>
+            <p className="text-center text-green-500 mt-14">@2024 all rights reserved</p>
+          </footer>
         </div>
         <div className="w-[1120px] h-[920px] flex ">
           <span id="map" className="w-[1120px] h-[920px]">
