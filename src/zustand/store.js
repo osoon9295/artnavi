@@ -16,9 +16,11 @@ const useShowStore = create(
        */
       setShowInfo: (info) => set(() => ({ showInfo: info })),
 
-      isModalOpen: false,
-      setIsModalOpen: (isOpen) => set(() => ({ isModalOpen: isOpen }))
+      modalOptions: {},
+      modalOpen: (newModalOptions) => set(() => ({ modalOptions: newModalOptions })),
+      modalClose: () => set(() => ({ modalOptions: null }))
     }),
+
     {
       name: 'my-storage',
       getStorage: () => localStorage
