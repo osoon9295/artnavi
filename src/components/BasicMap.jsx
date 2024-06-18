@@ -67,11 +67,11 @@ export default function BasicMap() {
               검색
             </button>
           </form>
-          <div className="max-h-[500px] overflow-y-auto">
+          <div className="max-h-[250px] overflow-y-auto bg-white">
             {places.map((place, index) => (
-              <div key = {index} className="p-2 mt-2 border-b">
-                <div>{place.name}</div>
-                <div>{place.address}</div>
+              <div key = {index} className="p-2 mt-2 border-b ">
+                <div className="p-2 mb-2 border border-black rounded-md">{place.name}</div>
+                <div className="text-yellow-600">{place.address}</div>
               </div>
             ))}
           </div>
