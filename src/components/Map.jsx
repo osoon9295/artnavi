@@ -1,6 +1,7 @@
 import React from 'react';
 import logoImage from '../logo/artnavi.png';
 import { useEffect } from 'react';
+import CardList from './ExhibitList';
 
 export default function Map() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function Map() {
       <div className="w-[1440px] h-[920px] flex m-auto">
         <div className="w-[320px] h-[920px] bg-amber-200">
           <img src={logoImage}></img>
+          <CardList />
         </div>
         <div className="w-[1120px] h-[920px] flex ">
           <span id="map" className="w-[1120px] h-[920px]">
