@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
-import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
 
 export default function BasicMap() {
@@ -67,8 +66,6 @@ export default function BasicMap() {
 
   return (
     <>
-      <div className="w-[1440px] h-[920px] flex m-auto">
-        <MapAside />
         <div className="relative">
           <Map // 지도를 표시할 Container
             id="map"
@@ -122,7 +119,6 @@ export default function BasicMap() {
             </ul>
           </div>
         </div>
-      </div>
     </>
   );
 }
