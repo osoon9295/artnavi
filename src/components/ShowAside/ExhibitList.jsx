@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
 
-const CardList = () => {
+const ExhibitList = () => {
   const { setShows, shows: zustandShows, museumTitle } = useShowStore();
 
   const { data: shows } = useQuery({
@@ -34,4 +33,4 @@ const CardList = () => {
   );
 };
 
-export default CardList;
+export default ExhibitList;
