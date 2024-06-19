@@ -11,36 +11,25 @@ export const signUp = async (email, password) => {
 
     if (signUpError) {
       console.log('Error:', signUpError);
-      alert('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요');
-      return;
+      alert('오류가 발생했습니다.' + signUpError.message); // 이미 존재하는 아이디
+      return { success: false, message: signUpError.message };
     }
 
-    console.log(signUpData);
+    console.log(signUpData.user.email);
 
-    const { data: userInfoData, error: userInfoError } = await supabase.from('user-info').insert([
-      {
-        user_id: email,
-        user_password: hashedPassword
-      }
-    ]);
+    const { data: userInfoData, error: userInfoError } = await supabase
+      .from('user-info')
+      .insert([{ user_id: signUpData.user.email }]);
 
     if (userInfoError) {
-      console.log('Error', userInfoError);
+      console.log('error', error);
+      return { success: false, message: userInfoError.message };
     }
 
-    console.log('signed up:', userInfoData);
+    console.log('User info added', userInfoData);
+    return { success: true, data: userInfoData };
   } catch (error) {
     console.log('error:', error);
+    return { success: false, message: error.message };
   }
-};
-
-export const checkEmailDuplicate = async (email) => {
-  const { data, error } = await supabase.from('user-info').select('id').eq('user_id', email).single();
-
-  if (error && error.code !== 'PGRST116') {
-    console.log('Error checking email:', error);
-    throw error;
-  }
-
-  return !!data;
 };

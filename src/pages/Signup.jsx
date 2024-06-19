@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { checkEmailDuplicate, signUp } from '../api/auth.api';
+import { signUp } from '../api/auth.api';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -35,49 +35,22 @@ const Signup = () => {
       alert('비밀번호는 6자 이상이어야 합니다.');
       return;
     }
+    try {
+      const signUpResult = await signUp(email, password);
 
-    const confirmEmail = await checkEmailDuplicate(email);
-    if (confirmEmail) {
-      alert('이미 사용중인 이메일입니다.');
-      return;
+      console.log(signUpResult);
+
+      if (signUpResult.success) {
+        alert('회원가입 되었습니다.');
+        navigate('/');
+        return;
+      } else {
+        alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('회원가입 처리 중 오류 발생:', error);
+      alert('오류가 발생했습니다. 관리자에게 문의하세요.');
     }
-
-    const signUpResult = await signUp(email, password);
-    if (signUpResult.success) {
-      alert('회원가입 되었습니다.');
-      navigate('/');
-    } else {
-      alert('오류가 발생했습니다. 다시 시도해주세요.');
-    }
-
-    // if (userInfoInput.password !== userInfoInput.confirmPassword) {
-    //   console.log(userInfoInput);
-    //   alert('비밀번호가 일치하지 않습니다.');
-    // } else {
-    //   e.preventDefault();
-    //   setUserInfoInput({
-    //     email: '',
-    //     password: '',
-    //     confirmPassword: ''
-    //   });
-
-    //   try {
-    //     const { email, password } = userInfoInput;
-    //     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-    //       email: email,
-    //       password: password
-    //     });
-
-    //     console.log('signup: ', { signUpData, signUpError }); // data에 뭐 들어있는지 확인하기
-    //   } catch (error) {
-    //     console.log('error', error);
-    //   }
-
-    //   const { email, password } = userInfoInput;
-    //   const { data, error } = await supabase
-    //     .from('user-info')
-    //     .insert([{ user_id: email, user_password: password }])
-    //     .select();
   };
 
   return (
