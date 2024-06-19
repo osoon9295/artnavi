@@ -14,7 +14,7 @@ const useShowStore = create(
        */
       setShowInfo: (info) => set(() => ({ showInfo: info })),
 
-      museumTitle: "경기도",
+      museumTitle: "공주",
       setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
 
 
