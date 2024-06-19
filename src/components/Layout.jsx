@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import CardList from './Main/ExhibitList';
 import axios from 'axios';
 
-const weatherAPIKey = "a42d7ee85839a67d4fe350775f82d621";
+const weatherAPIKey = 'a42d7ee85839a67d4fe350775f82d621';
 
 export default function Map() {
-const [weather, setWeather] = useState({})
-  
+  const [weather, setWeather] = useState({});
+
   // useEffect(() => {
   //   const container = document.getElementById('map');
   //   const options = {
@@ -26,8 +26,8 @@ const [weather, setWeather] = useState({})
       getWeather(lat, lon);
     });
   }, []);
-  
-  const getWeather = async(lat, lon) => {
+
+  const getWeather = async (lat, lon) => {
     try {
       const res = await axios.get(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}`
@@ -46,15 +46,15 @@ const [weather, setWeather] = useState({})
         description: weatherKo,
         name: cityName,
         temp: temp,
-        icon: weatherIconAdrs,
+        icon: weatherIconAdrs
       });
-    } catch (err){ 
+    } catch (err) {
       console.error(err);
     }
   };
-  
+
   console.log(weather);
-  
+
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -80,4 +80,3 @@ const [weather, setWeather] = useState({})
     </>
   );
 }
-
