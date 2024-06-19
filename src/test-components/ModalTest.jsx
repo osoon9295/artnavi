@@ -20,6 +20,8 @@ function ModalTest() {
 
   function setShowInfoAndOpenModal(showInfo) {
     setShowInfo(showInfo);
+    console.log('modal ↓');
+    console.dir(modal);
     modal.open();
   }
 
