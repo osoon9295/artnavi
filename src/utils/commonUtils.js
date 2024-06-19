@@ -36,7 +36,11 @@ export function decodeHTMLEntityFromObject(sourceObject) {
   @returns 디코딩된 문자열
 */
 export function decodeHTMLEntity(string) {
-  return string.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+  return string
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/<.*?>/g, '');
 }
 
 /**
