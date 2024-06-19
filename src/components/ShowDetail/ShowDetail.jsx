@@ -33,6 +33,15 @@ function ShowDetail() {
       ) : (
         <div className=" float-right w-[300px] h-[300px]"></div>
       )}
+      {isPostImgLoadable ? (
+        <img
+          src={postImgUrl}
+          onError={handlePostImgError}
+          className=" float-right w-[300px] h-[300px]  object-contain"
+        />
+      ) : (
+        <div className=" float-right w-[300px] h-[300px]"></div>
+      )}
 
       <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
         {institutionName && (
