@@ -5,6 +5,7 @@ import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
 export default function BasicMap() {
   useKaKaoLoader();
+
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
@@ -23,7 +24,7 @@ export default function BasicMap() {
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
         let places = [];
-        
+
         for (let i = 0; i < data.length; i++) {
           // @ts-ignore
           markers.push({
@@ -49,6 +50,7 @@ export default function BasicMap() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    
     const inputKeyword = e.target.keyword.value;
     if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
       setKeyword(inputKeyword);
@@ -96,12 +98,12 @@ export default function BasicMap() {
                 </form>
               </div>
             </div>
-            <hr className="my-3 border-t-2" />
+            <hr className="my-3 border-b-2 border-solid" />
             <ul>
               {places.map((place, index) => (
                 <li key={index} className="mb-2">
                   <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
-                  <div className="text-gray-400">{place.address}</div>
+                  <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
                 </li>
               ))}
             </ul>
