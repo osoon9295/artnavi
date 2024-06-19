@@ -1,9 +1,39 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import useShowStore from '../../zustand/store';
 
 function ShowDetail() {
   const showInfo = useShowStore((state) => state.showInfo);
 
+  const propertyNamesToSelect = [
+    'CNTC_INSTT_NM',
+    'EVENT_SITE',
+    'TITLE',
+    'EVENT_PERIOD',
+    'DESCRIPTION',
+    'IMAGE_OBJECT',
+    'URL'
+  ];
+
+  const selectedShowInfo = useMemo(() => {
+    return propertyNamesToSelect.reduce((selectedShowInfo, propertyName) => {
+      selectedShowInfo[propertyName] = showInfo[propertyName];
+      return selectedShowInfo;
+    }, {});
+  }, []);
+
+  const htmlEntityConvertedShowInfo = useMemo(() => {
+    for (const key in selectedShowInfo) {
+      if (Object.hasOwnProperty.call(selectedShowInfo, key)) {
+        const element = selectedShowInfo[key];
+        if (typeof element === 'string') {
+          selectedShowInfo[key] = element.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+        }
+      }
+    }
+    return selectedShowInfo;
+  }, []);
+
+  console.log('htmlEntityConvertedShowInfo =>', htmlEntityConvertedShowInfo);
   const {
     CNTC_INSTT_NM: institutionName,
     EVENT_SITE: eventSite,
@@ -12,7 +42,7 @@ function ShowDetail() {
     DESCRIPTION: description,
     IMAGE_OBJECT: postImgUrl,
     URL: officialUrl
-  } = showInfo;
+  } = htmlEntityConvertedShowInfo;
 
   const [isPostImgLoadable, setIsPostImgLoadable] = useState(true);
 
