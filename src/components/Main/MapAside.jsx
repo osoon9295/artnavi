@@ -44,12 +44,12 @@ const [weather, setWeather] = useState(null)
   
   return (
     <div className="w-[320px] h-[920px] bg-amber-200">
-      <header>
-      <img src={logoImage}></img>
-      <div>
-          <span>{`현재 날씨: ${weather ? weather.weather[0].main : '로딩중'}`}</span>
-          <span>{`온도: ${weather ? weather.main.temp : '로딩중'}`}</span>
-      </div>
+      <header className="flex items-center">
+        <img src={logoImage} className="mr-4" />
+        <div className="flex flex-col">
+            <span>{`현재 날씨: ${weather ? weather.weather[0].main : '로딩중'}`}</span>
+            <span>{`온도: ${weather ? weather.main.temp : '로딩중'}`}</span>
+        </div>
       </header>
       <CardList />
       <footer>
