@@ -40,7 +40,8 @@ export function decodeHTMLEntity(string) {
     .replace(/&gt;/g, '>')
     .replace(/&lt;/g, '<')
     .replace(/&nbsp;/g, ' ')
-    .replace(/<.*?>/g, '');
+    .replace(/<.*?>/g, '')
+    .replace(/&.*?;/g, '');
 }
 
 /**
