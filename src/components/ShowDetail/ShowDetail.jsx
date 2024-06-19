@@ -39,7 +39,7 @@ function ShowDetail() {
     <section className="block">
       <h1 className="mb-4 text-2xl font-bold text-center ">{showTitle}</h1>
 
-      {isPostImgLoadable ? (
+      {postImgUrl && isPostImgLoadable ? (
         <img
           src={postImgUrl}
           onError={handlePostImgError}
