@@ -9,7 +9,7 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("서울 미술관");
+  const [keyword, setKeyword] = useState('서울 미술관');
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function BasicMap() {
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
         let places = [];
-        
+
         for (let i = 0; i < data.length; i++) {
           // @ts-ignore
           markers.push({
@@ -51,7 +51,7 @@ export default function BasicMap() {
     e.preventDefault();
     const inputKeyword = e.target.value;
     setKeyword(inputKeyword);
-  }
+  };
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -87,12 +87,12 @@ export default function BasicMap() {
                 </form>
               </div>
             </div>
-            <hr className="my-3 border-t-2" />
+            <hr className="my-3 border-b-2 border-solid" />
             <ul>
               {places.map((place, index) => (
                 <li key={index} className="mb-2">
                   <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
-                  <div className="text-gray-400">{place.address}</div>
+                  <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
                 </li>
               ))}
             </ul>
