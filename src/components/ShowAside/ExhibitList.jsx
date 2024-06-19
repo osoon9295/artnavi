@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
+import museumTitle from '../../zustand/store';
 
 const ExhibitList = () => {
-  const { setShows, shows: zustandShows, museumTitle } = useShowStore();
-
+  const { setShows, shows: zustandShows } = useShowStore();
+  /**
+   * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
+   */
   const { data: shows } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {

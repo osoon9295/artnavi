@@ -1,6 +1,7 @@
+import MapAside from './Main/MapAside';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useEffect, useState } from 'react';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
+import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
 
 export default function BasicMap() {
@@ -51,60 +52,64 @@ export default function BasicMap() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
     if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
       setKeyword(inputKeyword);
     } else {
-      alert ('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+      alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
     }
     setMuseumTitle(inputKeyword);
   };
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
-  }
-  
+  };
+
   return (
     <>
-      <div className="relative">
-        <Map // 지도를 표시할 Container
-          id="map"
-          className="w-[1120px] h-[920px] overflow-hidden"
-          center={{
-            lat: 37.564214,
-            lng: 127.001699
-          }}
-          onCreate={setMap}
-        >
-          {markers.map((marker) => (
-            <MapMarker
-              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-              position={marker.position}
-              onClick={() => setInfo(marker)}
-            >
-              {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
-            </MapMarker>
-          ))}
-        </Map>
-        <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
-          <div className="text-center">
-            <div>
-              <form onSubmit={handleSearch}>
-                키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
-                <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
-                  검색하기
-                </button>
-              </form>
-            </div>
-          </div>
-          <hr className="my-3 border-b-2 border-solid" />
-          <ul>
-            {places.map((place, index) => (
-              <li key={index} className="mb-2">
-                <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
-                <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
-              </li>
+      <div className="w-[1440px] h-[920px] flex m-auto">
+        <MapAside />
+        <div className="relative">
+          <Map // 지도를 표시할 Container
+            id="map"
+            className="w-[1120px] h-[920px] overflow-hidden"
+            center={{
+              lat: 37.564214,
+              lng: 127.001699
+            }}
+            onCreate={setMap}
+          >
+            {markers.map((marker) => (
+              <MapMarker
+                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+                position={marker.position}
+                onClick={() => setInfo(marker)}
+              >
+                {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
+              </MapMarker>
             ))}
-          </ul>
+          </Map>
+          <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
+            <div className="text-center">
+              <div>
+                <form onSubmit={handleSearch}>
+                  키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
+                  <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
+                    검색하기
+                  </button>
+                </form>
+              </div>
+            </div>
+            <hr className="my-3 border-b-2 border-solid" />
+            <ul>
+              {places.map((place, index) => (
+                <li key={index} className="mb-2">
+                  <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
+                  <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>
