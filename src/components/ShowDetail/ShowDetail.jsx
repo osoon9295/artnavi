@@ -14,6 +14,17 @@ const dummyData = {
 function ShowDetail() {
   //1. Zustand에서 전시회 정보 읽어오기
   //const showInfo = useShowStore(state => state.showInfo);
+  /*
+  const {
+    CNTC_INSTT_NM: institutionName,
+    EVENT_SITE: eventSite,
+    TITLE: showTitle,
+    EVENT_PERIOD: eventPeriod,
+    DESCRIPTION: description,
+    IMAGE_OBJECT: postImgUrl,
+    URL: officialUrl
+  } = showInfo;
+  */
 
   const {
     CNTC_INSTT_NM: institutionName,
@@ -28,22 +39,22 @@ function ShowDetail() {
   //2. 전시회 정보 적절하게 표시하기
   return (
     <section className="block">
-      <div className="mb-4 text-xl">전시 제목: {showTitle}</div>
+      <h1 className="mb-4 text-2xl font-bold text-center">전시 제목: {showTitle}</h1>
 
       <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
 
       <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
-        <h3 className="text-lg">
+        <h3 className="text-lg ">
           주최
           <br />
           {institutionName}
         </h3>
-        <p>
+        <p className="text-lg ">
           전시 위치
           <br />
           {eventSite}
         </p>
-        <p>
+        <p className="text-lg ">
           전시 기간
           <br />
           {eventPeriod}
