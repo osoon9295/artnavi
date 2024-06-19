@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
 import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
@@ -10,9 +10,9 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("서울 박물관");
+  const [keyword, setKeyword] = useState('서울 박물관');
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState("서울 박물관");
+  const [inputKeyword, setInputKeyword] = useState('서울 박물관');
   const { setMuseumTitle } = useShowStore();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function BasicMap() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
+    if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄')) {
       setKeyword(inputKeyword);
     } else {
       alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
@@ -79,6 +79,8 @@ export default function BasicMap() {
             }}
             onCreate={setMap}
           >
+            <MapTypeControl position={'TOPRIGHT'} />
+            <ZoomControl position={'RIGHT'} />
             {markers.map((marker) => (
               <MapMarker
                 key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
