@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../Layout/Layout';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const MainPage = () => {
       >
         회원가입
       </button>
+      <Layout />
     </div>
   );
 };
