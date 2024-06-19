@@ -33,3 +33,29 @@ export const signUp = async (email, password) => {
     return { success: false, message: error.message };
   }
 };
+
+export const signIn = async (email, password) => {
+  try {
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (signInError) {
+      console.log('Error:', signInError);
+      return;
+    }
+    console.log('Signed in', signInData);
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
+
+export const signOut = async () => {
+  try {
+    const { error } = await supabase.auth.signOut();
+    alert('로그아웃 되었습니다.');
+  } catch (error) {
+    console.log('error', error);
+  }
+};

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signIn } from '../api/auth.api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,22 +12,30 @@ const Login = () => {
 
   const inputEmail = (e) => {
     setUserInput({ ...userInput, email: e.target.value });
-    console.log(userInput);
   };
 
   const inputPassword = (e) => {
     setUserInput({ ...userInput, password: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const { email, password } = userInput;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!userInput.email.trim()) {
       return alert('이메일을 입력해주세요');
-    } else if (!userInput.password.trim()) {
-      return alert('비밀번호를 입력해주세요');
-    } else {
     }
+
+    if (!userInput.password.trim()) {
+      return alert('비밀번호를 입력해주세요');
+    }
+
+    const signInResult = await signIn(email, password);
+    console.log(signInResult);
+    alert('로그인되었습니다.');
+    navigate('/');
+    return;
   };
 
   return (
