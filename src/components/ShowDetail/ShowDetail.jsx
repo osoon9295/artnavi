@@ -22,17 +22,8 @@ function ShowDetail() {
 
   return (
     <section className="block">
-      <h1 className="mb-4 text-2xl font-bold text-center">{showTitle}</h1>
+      <h1 className="mb-4 text-2xl font-bold text-center ">{showTitle}</h1>
 
-      {isPostImgLoadable ? (
-        <img
-          src={postImgUrl}
-          onError={handlePostImgError}
-          className=" float-right w-[300px] h-[300px]  object-contain"
-        />
-      ) : (
-        <div className=" float-right w-[300px] h-[300px]"></div>
-      )}
       {isPostImgLoadable ? (
         <img
           src={postImgUrl}
