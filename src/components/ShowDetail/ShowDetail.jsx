@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import useShowStore from '../../zustand/store';
 
 function ShowDetail() {
-  //1. Zustand에서 전시회 정보 읽어오기
   const showInfo = useShowStore((state) => state.showInfo);
+
   const {
     CNTC_INSTT_NM: institutionName,
     EVENT_SITE: eventSite,
@@ -13,33 +14,53 @@ function ShowDetail() {
     URL: officialUrl
   } = showInfo;
 
-  //2. 전시회 정보 적절하게 표시하기
+  const [isPostImgLoadable, setIsPostImgLoadable] = useState(true);
+
+  function handlePostImgError(e) {
+    setIsPostImgLoadable(false);
+  }
+
   return (
     <section className="block">
-      <h1 className="mb-4 text-2xl font-bold text-center">전시 제목: {showTitle}</h1>
+      <h1 className="mb-4 text-2xl font-bold text-center ">{showTitle}</h1>
 
-      <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
+      {isPostImgLoadable ? (
+        <img
+          src={postImgUrl}
+          onError={handlePostImgError}
+          className=" float-right w-[300px] h-[300px]  object-contain"
+        />
+      ) : (
+        <div className=" float-right w-[300px] h-[300px]"></div>
+      )}
 
       <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
-        <h3 className="text-lg ">
-          주최
-          <br />
-          {institutionName}
-        </h3>
-        <p className="text-lg ">
-          전시 위치
-          <br />
-          {eventSite}
-        </p>
-        <p className="text-lg ">
-          전시 기간
-          <br />
-          {eventPeriod}
-        </p>
+        {institutionName && (
+          <h3 className="text-lg ">
+            주최
+            <br />
+            {institutionName}
+          </h3>
+        )}
+        {eventSite && (
+          <p className="text-lg ">
+            전시 위치
+            <br />
+            {eventSite}
+          </p>
+        )}
+        {eventPeriod && (
+          <p className="text-lg ">
+            전시 기간
+            <br />
+            {eventPeriod}
+          </p>
+        )}
       </div>
 
-      <p className="mt-4 text-lg">{description}</p>
-      <a href={officialUrl} target="blank" className="float-right ">
+      <p className="mt-4 text-lg whitespace-pre-wrap">{description}</p>
+
+      <a href={officialUrl} target="blank" className="float-right mt-3">
         공식홈페이지 바로가기
       </a>
       <div className="clear-both"></div>
