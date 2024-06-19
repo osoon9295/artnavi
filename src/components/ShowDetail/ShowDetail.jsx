@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import useShowStore from '../../zustand/store';
 
 function ShowDetail() {
@@ -13,12 +14,28 @@ function ShowDetail() {
     URL: officialUrl
   } = showInfo;
 
+  const [isPostImgLoadable, setIsPostImgLoadable] = useState(true);
+
+  function handlePostImgError(e) {
+    console.log('e ↓');
+    console.dir(e);
+    setIsPostImgLoadable(false);
+  }
+
   //2. 전시회 정보 적절하게 표시하기
   return (
     <section className="block">
       <h1 className="mb-4 text-2xl font-bold text-center">{showTitle}</h1>
 
-      <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
+      {isPostImgLoadable ? (
+        <img
+          src={postImgUrl}
+          onError={handlePostImgError}
+          className=" float-right w-[300px] h-[300px]  object-contain"
+        />
+      ) : (
+        <div className=" float-right w-[300px] h-[300px]"></div>
+      )}
 
       <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
         {institutionName && (
