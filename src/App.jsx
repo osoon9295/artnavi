@@ -4,11 +4,10 @@ import queryClient from './query-client/queryClient';
 import BasicMap from './components/BasicMap';
 
 const App = () => {
-
   return (
     <QueryClientProvider client={queryClient}>
       {/* <OnlyLayout /> */}
-      <BasicMap/>
+      <BasicMap />
     </QueryClientProvider>
   );
 };

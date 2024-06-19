@@ -9,9 +9,15 @@ function ShowDetailModal() {
     modal.close();
   }
 
+  function handleOutsideModalAreaClick(e) {
+    if (e.target === e.currentTarget) {
+      modal.close();
+    }
+  }
+
   return (
-    <BackDrop>
-      <div className="pr-10 pl-10 pt-10 pb-5 bg-white rounded w-[600px] min-h-[600px]">
+    <BackDrop onClick={handleOutsideModalAreaClick}>
+      <div className="flex flex-col items-center  pr-20 pl-20 pt-14 pb-10 bg-white rounded w-[800px] min-h-[660px] h-fit ">
         <ShowDetail />
         <button onClick={handleCloseButtonClick} className="w-full mt-5 ml-auto mr-auto">
           닫기
