@@ -30,28 +30,28 @@ export default function WeatherInfo() {
     // const weatherId = res.data.weather[0].id;
     // const weatherKo = weatherDescKo[weatherId];
     
-    // if (!weatherData) {
-    //     return (
-    //       <div className="flex flex-col">
-    //         <span className='m-1'>현재 날씨: Loading...</span>
-    //         <span className='m-1'>온도: Loading...</span>
-    //       </div>
-    //   )
-    // }
+    if (!weatherData) {
+        return (
+          <div className="flex flex-col">
+            <span className='m-1'>현재 날씨: Loading...</span>
+            <span className='m-1'>온도: Loading...</span>
+          </div>
+      )
+    }
     
     // 날씨 아이콘 가져오기
-    // const { weather, main } = weatherData;
-    // const temperature = Math.round(main.temp);;
-    // const weatherIcon = weather[0].icon;
-    // const weatherIconSrc = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+    const { weather, main } = weatherData;
+    const temperature = Math.round(main.temp);;
+    const weatherIcon = weather[0].icon;
+    const weatherIconSrc = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
 
-    // console.log(weatherData)
-    // console.log(weatherIcon)
+    console.log(weatherData)
+    console.log(weatherIcon)
     
     return (
     <div className="flex flex-col">
       {/* <span className='m-1'>현재 날씨: <img src={weatherIconSrc} /></span> */}
-      <span className='m-1'>온도: {weatherData.main.temp}°C</span>
+      <span className='m-1'>온도: {temperature}°C</span>
     </div>
     );
 };

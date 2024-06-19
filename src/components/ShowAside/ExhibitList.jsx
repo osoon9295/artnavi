@@ -14,12 +14,12 @@ const ExhibitList = () => {
   const { data: shows } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows("공주");
+      const showsData = await kcisaApi.getShows(museumTitle);
       setShows(showsData);
       return showsData;
     }
   });
-  
+
   const setShowInfo = useShowStore((state) => state.setShowInfo);
   
   return (
