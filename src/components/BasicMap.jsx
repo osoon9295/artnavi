@@ -1,5 +1,5 @@
 import MapAside from './Main/MapAside';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
@@ -77,6 +77,8 @@ export default function BasicMap() {
             }}
             onCreate={setMap}
           >
+            <MapTypeControl position={'TOPRIGHT'} />
+            <ZoomControl position={'RIGHT'} />
             {markers.map((marker) => (
               <MapMarker
                 key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
