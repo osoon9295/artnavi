@@ -36,12 +36,13 @@ export function decodeHTMLEntityFromObject(sourceObject) {
   @returns 디코딩된 문자열
 */
 export function decodeHTMLEntity(string) {
-  return string
+  unnecessaryHTMLEntityRemovedStr string
     .replace(/&gt;/g, '>')
     .replace(/&lt;/g, '<')
     .replace(/&nbsp;/g, ' ')
-    .replace(/<.*?>/g, '')
     .replace(/&.*?;/g, '');
+
+  //todo: html sanitizer 추가
 }
 
 /**
