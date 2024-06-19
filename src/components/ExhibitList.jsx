@@ -5,6 +5,9 @@ import useShowStore from '../zustand/store';
 
 const CardList = () => {
   const { setShows, shows: zustandShows } = useShowStore();
+  /**
+   * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
+   */
   const { data: shows } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {

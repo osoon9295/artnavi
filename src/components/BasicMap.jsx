@@ -1,12 +1,13 @@
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import logoImage from '../logo/artnavi.png';
 import { useEffect, useState } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import logoImage from '../../public/logo/artnavi.png';
+import useKaKaoLoader from '../kakao/useKaKaoLoader';
 
 export default function BasicMap() {
+  useKaKaoLoader();
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-
   useEffect(() => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
