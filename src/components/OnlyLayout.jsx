@@ -1,10 +1,23 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import logoImage from '../../public/logo/artnavi.png';
-import CardList from './ExhibitList';
+import { kcisaApi } from '../api/kcisa.api';
+import useShowStore from '../zustand/store';
+import CardList from './Main/ExhibitList';
 
 const weatherAPIKey = 'a42d7ee85839a67d4fe350775f82d621';
 
 export default function OnlyLayout() {
+  const { setShows } = useShowStore();
+
+  const { mutate: getShows } = useMutation({
+    mutationFn: (museum) => kcisaApi.getShows(museum),
+    onSuccess: (data) => setShows(data),
+    onError: (error) => Swal.fire({ title: error })
+  });
+  useEffect(() => {
+    getShows('공주박물관');
+  }, []);
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">

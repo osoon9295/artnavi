@@ -1,7 +1,8 @@
-import MapAside from './Main/MapAside';
-import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
+import MapAside from './Main/MapAside';
+import useShowStore from '../zustand/store';
 
 export default function BasicMap() {
   useKaKaoLoader();
@@ -9,9 +10,10 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState('박물관');
+  const [keyword, setKeyword] = useState('서울 박물관');
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState('박물관');
+  const [inputKeyword, setInputKeyword] = useState('서울 박물관');
+  const { setMuseumTitle } = useShowStore();
 
   useEffect(() => {
     if (!map) return;
@@ -51,12 +53,12 @@ export default function BasicMap() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    const inputKeyword = e.target.keyword.value;
     if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄')) {
       setKeyword(inputKeyword);
     } else {
       alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
     }
+    setMuseumTitle(inputKeyword);
   };
 
   const handleInputChange = (e) => {

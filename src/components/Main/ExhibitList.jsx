@@ -2,9 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
+import museumTitle from '../../zustand/store';
 
 const CardList = () => {
   const { setShows, shows: zustandShows } = useShowStore();
+  /**
+   * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
+   */
   const { data: shows } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {
@@ -17,7 +21,7 @@ const CardList = () => {
   return (
     <div className="flex flex-col items-center h-screen p-4">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">
-        선택한 박물관 이름
+        {museumTitle}
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-y-auto">
         {zustandShows?.map((card, index) => (
