@@ -21,21 +21,27 @@ function ShowDetail() {
       <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
 
       <div className="flex flex-col justify-center gap-9 text-center h-[300px]">
-        <h3 className="text-lg ">
-          주최
-          <br />
-          {institutionName}
-        </h3>
-        <p className="text-lg ">
-          전시 위치
-          <br />
-          {eventSite}
-        </p>
-        <p className="text-lg ">
-          전시 기간
-          <br />
-          {eventPeriod}
-        </p>
+        {institutionName && (
+          <h3 className="text-lg ">
+            주최
+            <br />
+            {institutionName}
+          </h3>
+        )}
+        {eventSite && (
+          <p className="text-lg ">
+            전시 위치
+            <br />
+            {eventSite}
+          </p>
+        )}
+        {eventPeriod && (
+          <p className="text-lg ">
+            전시 기간
+            <br />
+            {eventPeriod}
+          </p>
+        )}
       </div>
 
       <p className="mt-4 text-lg">{description}</p>
