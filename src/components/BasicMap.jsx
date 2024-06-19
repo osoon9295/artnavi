@@ -8,14 +8,15 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("서울 미술관");
+  const [keyword, setKeyword] = useState("박물관");
   const [places, setPlaces] = useState([]);
+  const [inputKeyword, setInputKeyword] = useState("박물관");
 
   useEffect(() => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch('서울 미술관', (data, status, _pagination) => {
+    ps.keywordSearch(keyword, (data, status, _pagination) => {
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -48,9 +49,18 @@ export default function BasicMap() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const inputKeyword = e.target.value;
-    setKeyword(inputKeyword);
+    const inputKeyword = e.target.keyword.value;
+    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
+      setKeyword(inputKeyword);
+    } else {
+      alert ('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputKeyword(e.target.value);
   }
+  
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -78,8 +88,8 @@ export default function BasicMap() {
           <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
             <div className="text-center">
               <div>
-                <form>
-                  키워드 : <input type="text" size="15" className="p-1 border" placeholder="키워드 입력" />
+                <form onSubmit={handleSearch}>
+                  키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
                   <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
                     검색하기
                   </button>
