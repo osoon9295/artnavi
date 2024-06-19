@@ -17,9 +17,9 @@ function ShowDetailModal() {
 
   return (
     <BackDrop onClick={handleOutsideModalAreaClick}>
-      <div className="flex flex-col items-center  pr-20 pl-20 pt-14 pb-10 bg-white rounded w-[800px] h-[660px] overflow-auto">
+      <div className="flex flex-col pt-16 pb-14  pr-20 pl-20 bg-white rounded w-[800px] h-[660px] overflow-auto">
         <ShowDetail />
-        <button onClick={handleCloseButtonClick} className="w-full mt-5 ml-auto mr-auto">
+        <button onClick={handleCloseButtonClick} className="mt-5 ml-auto mr-auto ">
           닫기
         </button>
       </div>

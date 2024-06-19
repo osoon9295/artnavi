@@ -44,8 +44,9 @@ function ShowDetail() {
         )}
       </div>
 
-      <p className="mt-4 text-lg">{description}</p>
-      <a href={officialUrl} target="blank" className="float-right ">
+      <p className="mt-4 text-lg whitespace-pre-wrap">{description}</p>
+
+      <a href={officialUrl} target="blank" className="float-right mt-3">
         공식홈페이지 바로가기
       </a>
       <div className="clear-both"></div>
