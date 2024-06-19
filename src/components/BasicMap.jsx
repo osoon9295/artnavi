@@ -1,7 +1,7 @@
-import MapAside from './Main/MapAside';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
+import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
 
 export default function BasicMap() {
@@ -52,18 +52,19 @@ export default function BasicMap() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
     if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
       setKeyword(inputKeyword);
     } else {
-      alert ('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+      alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
     }
     setMuseumTitle(inputKeyword);
   };
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
-  }
-  
+  };
+
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -92,7 +93,16 @@ export default function BasicMap() {
             <div className="text-center">
               <div>
                 <form onSubmit={handleSearch}>
-                  키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
+                  키워드 :{' '}
+                  <input
+                    type="text"
+                    defaultValue={keyword}
+                    onChange={handleInputChange}
+                    name="keyword"
+                    size="15"
+                    className="p-1 border"
+                    placeholder="키워드 입력"
+                  />
                   <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
                     검색하기
                   </button>
