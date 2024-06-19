@@ -16,7 +16,7 @@ function ShowDetail() {
   //2. 전시회 정보 적절하게 표시하기
   return (
     <section className="block">
-      <h1 className="mb-4 text-2xl font-bold text-center">전시 제목: {showTitle}</h1>
+      <h1 className="mb-4 text-2xl font-bold text-center">{showTitle}</h1>
 
       <img src={postImgUrl} className=" float-right w-[300px] h-[300px]  object-contain" />
 
