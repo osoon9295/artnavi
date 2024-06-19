@@ -16,7 +16,6 @@ const Login = () => {
 
   const inputPassword = (e) => {
     setUserInput({ ...userInput, password: e.target.value });
-    console.log(userInput);
   };
 
   const handleSubmit = (e) => {

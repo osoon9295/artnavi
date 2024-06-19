@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { checkEmailDuplicate, signUp } from '../api/auth.api';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,20 +21,63 @@ const Signup = () => {
     setUserInfoInput({ ...userInfoInput, confirmPassword: e.target.value });
   };
 
-  const handleSignup = (e) => {
+  const { email, password, confirmPassword } = userInfoInput;
+
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    if (userInfoInput.password !== userInfoInput.confirmPassword) {
-      console.log(userInfoInput);
+    if (password !== confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
-    } else {
-      setUserInfoInput({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        nickname: ''
-      });
+      return;
     }
+
+    if (password.length < 6) {
+      alert('비밀번호는 6자 이상이어야 합니다.');
+      return;
+    }
+
+    const confirmEmail = await checkEmailDuplicate(email);
+    if (confirmEmail) {
+      alert('이미 사용중인 이메일입니다.');
+      return;
+    }
+
+    const signUpResult = await signUp(email, password);
+    if (signUpResult.success) {
+      alert('회원가입 되었습니다.');
+      navigate('/');
+    } else {
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
+    }
+
+    // if (userInfoInput.password !== userInfoInput.confirmPassword) {
+    //   console.log(userInfoInput);
+    //   alert('비밀번호가 일치하지 않습니다.');
+    // } else {
+    //   e.preventDefault();
+    //   setUserInfoInput({
+    //     email: '',
+    //     password: '',
+    //     confirmPassword: ''
+    //   });
+
+    //   try {
+    //     const { email, password } = userInfoInput;
+    //     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+    //       email: email,
+    //       password: password
+    //     });
+
+    //     console.log('signup: ', { signUpData, signUpError }); // data에 뭐 들어있는지 확인하기
+    //   } catch (error) {
+    //     console.log('error', error);
+    //   }
+
+    //   const { email, password } = userInfoInput;
+    //   const { data, error } = await supabase
+    //     .from('user-info')
+    //     .insert([{ user_id: email, user_password: password }])
+    //     .select();
   };
 
   return (
