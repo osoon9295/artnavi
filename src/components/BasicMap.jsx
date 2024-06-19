@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
 import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
