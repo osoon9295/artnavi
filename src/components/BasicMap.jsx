@@ -9,6 +9,8 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+  const [keyword, setKeyword] = useState("서울 미술관");
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
     if (!map) return;
@@ -20,7 +22,8 @@ export default function BasicMap() {
         // LatLngBounds 객체에 좌표를 추가합니다
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
-
+        let places = [];
+        
         for (let i = 0; i < data.length; i++) {
           // @ts-ignore
           markers.push({
@@ -30,17 +33,25 @@ export default function BasicMap() {
             },
             content: data[i].place_name
           });
-          // @ts-ignore
+          places.push({
+            name: data[i].place_name,
+            address: data[i].address_name
+          });
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         setMarkers(markers);
-
+        setPlaces(places);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
       }
     });
-  }, [map]);
+  }, [map, keyword]);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const inputKeyword = e.target.value;
+    setKeyword(inputKeyword);
+  }
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -69,7 +80,7 @@ export default function BasicMap() {
             <div className="text-center">
               <div>
                 <form>
-                  키워드 : <input type="text" size="15" className="p-1 border" />
+                  키워드 : <input type="text" size="15" className="p-1 border" placeholder="키워드 입력" />
                   <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
                     검색하기
                   </button>
@@ -77,8 +88,14 @@ export default function BasicMap() {
               </div>
             </div>
             <hr className="my-3 border-t-2" />
-            <ul>대림 미술관</ul>
-            <div className="my-3 text-center ">서울 종로구 자하문로 4길 21</div>
+            <ul>
+              {places.map((place, index) => (
+                <li key={index} className="mb-2">
+                  <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
+                  <div className="text-gray-400">{place.address}</div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
