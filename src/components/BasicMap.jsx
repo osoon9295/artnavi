@@ -9,9 +9,9 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("박물관");
+  const [keyword, setKeyword] = useState('박물관');
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState("박물관");
+  const [inputKeyword, setInputKeyword] = useState('박물관');
 
   useEffect(() => {
     if (!map) return;
@@ -50,19 +50,19 @@ export default function BasicMap() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    
+
     const inputKeyword = e.target.keyword.value;
-    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
+    if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄')) {
       setKeyword(inputKeyword);
     } else {
-      alert ('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+      alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
     }
   };
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
-  }
-  
+  };
+
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">
@@ -91,7 +91,16 @@ export default function BasicMap() {
             <div className="text-center">
               <div>
                 <form onSubmit={handleSearch}>
-                  키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
+                  키워드 :{' '}
+                  <input
+                    type="text"
+                    defaultValue={keyword}
+                    onChange={handleInputChange}
+                    name="keyword"
+                    size="15"
+                    className="p-1 border"
+                    placeholder="키워드 입력"
+                  />
                   <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
                     검색하기
                   </button>
