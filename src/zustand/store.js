@@ -16,6 +16,10 @@ const useShowStore = create(
        */
       setShowInfo: (info) => set(() => ({ showInfo: info })),
 
+      museumTitle: "박물관을 선택해주세요.",
+      setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
+
+
       modalOptions: {},
       modalOpen: (newModalOptions) => set(() => ({ modalOptions: newModalOptions })),
       modalClose: () => set(() => ({ modalOptions: null }))
