@@ -1,7 +1,6 @@
-import MapAside from './Main/MapAside';
+import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
-import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
 
 export default function BasicMap() {
@@ -67,8 +66,6 @@ export default function BasicMap() {
 
   return (
     <>
-      <div className="w-[1440px] h-[920px] flex m-auto">
-        <MapAside />
         <div className="relative">
           <Map // 지도를 표시할 Container
             id="map"
@@ -93,7 +90,16 @@ export default function BasicMap() {
             <div className="text-center">
               <div>
                 <form onSubmit={handleSearch}>
-                  키워드 : <input type="text" defaultValue={keyword} onChange={handleInputChange} name="keyword" size="15" className="p-1 border" placeholder="키워드 입력" />
+                  키워드 :{' '}
+                  <input
+                    type="text"
+                    defaultValue={keyword}
+                    onChange={handleInputChange}
+                    name="keyword"
+                    size="15"
+                    className="p-1 border"
+                    placeholder="키워드 입력"
+                  />
                   <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
                     검색하기
                   </button>
@@ -111,7 +117,6 @@ export default function BasicMap() {
             </ul>
           </div>
         </div>
-      </div>
     </>
   );
 }

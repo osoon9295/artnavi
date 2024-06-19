@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function WeatherInfo() {    
-    const [weather, setWeather] = useState(null)    
+    const [weatherData, setWeatherData] = useState(null)    
 
     const API_KEY = "a42d7ee85839a67d4fe350775f82d621";
 
@@ -20,31 +20,38 @@ export default function WeatherInfo() {
         const res = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
         );
-        setWeather(res.data);  
+        setWeatherData(res.data);  
         } catch (err){ 
         console.error(err);
         }
     };
-   
-    console.log(weather);
     
     // id 찾아서 매칭 후 description 한글 번역된 거 가져오기
     // const weatherId = res.data.weather[0].id;
     // const weatherKo = weatherDescKo[weatherId];
     
+    // if (!weatherData) {
+    //     return (
+    //       <div className="flex flex-col">
+    //         <span className='m-1'>현재 날씨: Loading...</span>
+    //         <span className='m-1'>온도: Loading...</span>
+    //       </div>
+    //   )
+    // }
+    
     // 날씨 아이콘 가져오기
-    // const { weather, main } = weather;
-    // const temperature = main.temp;
+    // const { weather, main } = weatherData;
+    // const temperature = Math.round(main.temp);;
     // const weatherIcon = weather[0].icon;
     // const weatherIconSrc = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
-    
-    // 소수점 버리기
-    // const temp = Math.round(res.data.main.temp);
+
+    // console.log(weatherData)
+    // console.log(weatherIcon)
     
     return (
     <div className="flex flex-col">
-      {/* <span className='m-1'>현재 날씨: {weather ? (<img scr={weatherIconSrc} />) : 'Loading...'}</span> */}
-      <span className='m-1'>온도: {weather ? `${weather.main.temp}°C` : 'Loading...'}</span>
+      {/* <span className='m-1'>현재 날씨: <img src={weatherIconSrc} /></span> */}
+      <span className='m-1'>온도: {weatherData.main.temp}°C</span>
     </div>
     );
-}; 
+};
