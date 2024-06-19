@@ -26,7 +26,6 @@ export default function WeatherInfo() {
         }
     };
    
-    console.log(weather);
     
     // id 찾아서 매칭 후 description 한글 번역된 거 가져오기
     // const weatherId = res.data.weather[0].id;

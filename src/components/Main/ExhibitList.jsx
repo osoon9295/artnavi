@@ -1,22 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { kcisaApi } from '../../api/kcisa.api';
+import Swal from 'sweetalert2';
 import useShowStore from '../../zustand/store';
+import { useEffect } from 'react';
 
 const CardList = () => {
-  const { setShows, shows: zustandShows } = useShowStore();
-  /**
-   * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
-   */
-  const { data: shows } = useQuery({
-    queryKey: ['shows'],
-    queryFn: async () => {
-      const showsData = await kcisaApi.getShows('공주박물관');
-      setShows(showsData);
-      return showsData;
-    }
+  const { shows: zustandShows, museumTitle, setShows} = useShowStore();
+  const { mutate: getShows } = useMutation({
+    mutationFn: (museum) => kcisaApi.getShows(museum),
+    onSuccess: (data) => setShows(data),
+    onError: (error) => Swal.fire({ title: error })
   });
-
+  useEffect(() => {
+    getShows(museumTitle);
+  }, [museumTitle]);
   return (
     <div className="flex flex-col items-center h-screen p-4">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">

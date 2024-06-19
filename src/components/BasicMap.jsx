@@ -3,6 +3,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
 import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export default function BasicMap() {
   useKaKaoLoader();
@@ -13,7 +14,7 @@ export default function BasicMap() {
   const [keyword, setKeyword] = useState("서울 박물관");
   const [places, setPlaces] = useState([]);
   const [inputKeyword, setInputKeyword] = useState("서울 박물관");
-  const { setMuseumTitle } = useShowStore();
+  const { setShows,shows,setMuseumTitle } = useShowStore();
 
   useEffect(() => {
     if (!map) return;
@@ -50,6 +51,15 @@ export default function BasicMap() {
     });
   }, [map, keyword]);
 
+ const { data: showsData } = useQuery({
+    queryKey: ['shows'],
+    queryFn: async () => {
+      const showsData = await kcisaApi.getShows('공주박물관');
+      setShows(showsData);
+      console.log('showsData', showsData,shows)
+      return showsData;
+    }
+  });
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -63,6 +73,7 @@ export default function BasicMap() {
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
+
   };
 
   return (
@@ -112,7 +123,7 @@ export default function BasicMap() {
             <hr className="my-3 border-b-2 border-solid" />
             <ul>
               {places.map((place, index) => (
-                <li key={index} className="mb-2">
+                <li key={index} onClick={() => {}} className="mb-2">
                   <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
                   <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
                 </li>
