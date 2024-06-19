@@ -58,7 +58,7 @@ function ShowDetail() {
         )}
       </div>
 
-      <p className="mt-4 text-lg whitespace-pre-wrap">{description}</p>
+      <p className="mt-4 text-lg whitespace-pre-wrap bg-[#FAFAFA] p-5">{description}</p>
 
       <a href={officialUrl} target="blank" className="float-right mt-3">
         공식홈페이지 바로가기
