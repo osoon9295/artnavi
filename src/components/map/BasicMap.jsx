@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
-import useKaKaoLoader from '../kakao/useKaKaoLoader';
-import useShowStore from '../zustand/store';
+import useKaKaoLoader from './hook/UseKakaoLoader';
+import useShowStore from '../../zustand/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
+import { kcisaApi } from '../../api/kcisa.api';
 
 export default function BasicMap() {
   useKaKaoLoader();
@@ -10,10 +12,12 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState('서울 박물관');
+  const [keyword, setKeyword] = useState("국립박물관");
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState("서울 박물관");
+  const [inputKeyword, setInputKeyword] = useState("");
+
   const { setShows,shows,setMuseumTitle } = useShowStore();
+
 
   useEffect(() => {
     if (!map) return;
@@ -56,6 +60,7 @@ export default function BasicMap() {
       const showsData = await kcisaApi.getShows(keyword);
       setShows(showsData);
       console.log('showsData', showsData,shows)
+
       return showsData;
     }
   });
@@ -123,7 +128,9 @@ export default function BasicMap() {
             <hr className="my-3 border-b-2 border-solid" />
             <ul>
               {places.map((place, index) => (
-                <li key={index} onClick={() => {}} className="mb-2">
+                <li key={index} onClick={() => 
+                setMuseumTitle(place.name)} 
+                className="mb-2 hover:cursor-pointer">
                   <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
                   <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
                 </li>
