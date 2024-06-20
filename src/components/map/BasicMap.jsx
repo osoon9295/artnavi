@@ -1,10 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
-import useKaKaoLoader from './hook/UseKakaoLoader';
-import useShowStore from '../../zustand/store';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2';
 import { kcisaApi } from '../../api/kcisa.api';
+import useShowStore from '../../zustand/store';
+import useKaKaoLoader from './hook/UseKakaoLoader';
 
 export default function BasicMap() {
   useKaKaoLoader();

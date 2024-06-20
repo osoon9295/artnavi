@@ -1,23 +1,11 @@
-import logoImage from '/public/logo/artnavi.png';
-import BasicMap from '../components/map/BasicMap';
-import ExhibitList from '../components/aside/ExhibitList';
-import WeatherInfo from '../components/aside/WeatherInfo';
+import Aside from '../components/aside/Aside';
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
     <>
-      <div className="w-[1440px] h-[920px] flex m-auto">
-        <div className="w-[320px] h-[920px] bg-amber-200">
-          <header className="flex items-center">
-            <img src={logoImage} className="mr-4" />
-            <WeatherInfo />
-          </header>
-          <ExhibitList />
-          <footer>
-            <p className="text-center text-green-500 ">@2024 all rights reserved</p>
-          </footer>
-        </div>
-        <BasicMap />
+      <div className="flex justify-center w-screen m-auto h-4/5">
+        <Aside />
+        {children}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import useShowStore from '../../zustand/store';
+import { useMemo, useState } from 'react';
 import { createObjectByPropertyNames, normalizeStringProperties } from '../../utils/commonUtils';
+import useShowStore from '../../zustand/store';
 
 function ShowDetail() {
   const showInfo = useShowStore((state) => state.showInfo);
@@ -73,7 +73,9 @@ function ShowDetail() {
         )}
       </div>
 
-      <p className="mt-4 text-lg whitespace-pre-wrap bg-[#FAFAFA] p-5">{description}</p>
+      <p className="mt-4 text-lg whitespace-pre-wrap bg-[#FAFAFA] p-5">
+        {description ? description : '상세 정보가 없습니다.'}
+      </p>
 
       <a href={officialUrl} target="blank" className="float-right mt-3">
         공식홈페이지 바로가기

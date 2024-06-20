@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function WeatherInfo() {
   const [weatherData, setWeatherData] = useState(null);
@@ -14,29 +14,29 @@ export default function WeatherInfo() {
       getWeather(lat, lon);
     });
   }, []);
-
-  const getWeather = async (lat, lon) => {
-    try {
+  
+  const getWeather = async(lat, lon) => {
+      try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       );
-      setWeatherData(res.data);
-    } catch (err) {
+      setWeatherData(res.data);  
+      } catch (err){ 
       console.error(err);
-    }
+      }
   };
-
+  
   // id 찾아서 매칭 후 description 한글 번역된 거 가져오기
   // const weatherId = res.data.weather[0].id;
   // const weatherKo = weatherDescKo[weatherId];
-
+  
   if (!weatherData) {
-    return (
-      <div className="flex flex-col">
-        <span className="flex items-center m-1">현재 날씨: Loading...</span>
-        <span className="m-1">온도: Loading...</span>
-      </div>
-    );
+      return (
+        <div className="flex flex-col">
+          <span className='flex items-center text-sm'>현재 날씨: 로딩 중...</span>
+          <span className='text-sm'>온도: 로딩 중...</span>
+        </div>
+    )
   }
 
   // 날씨 아이콘 가져오기
