@@ -3,7 +3,8 @@ import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
 import { useModal } from '../../contexts/modal.context';
 
-const ExhibitList = () => {
+const ExhibitList = ({inputValue}) => {
+  console.log("test", inputValue)
   const modal = useModal();
   const museumTitle = useShowStore((state) => state.museumTitle);
   
@@ -14,7 +15,7 @@ const ExhibitList = () => {
   const { data: shows } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows(museumTitle);
+      const showsData = await kcisaApi.getShows("제주");
       setShows(showsData);
       return showsData;
     }
@@ -28,7 +29,6 @@ const ExhibitList = () => {
         {museumTitle}
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-y-auto">
-        {/* 카드에 호버효과넣기 */}
         {shows?.map((card, index) => {
         const {
                 CNTC_INSTT_NM: institutionName,
@@ -44,7 +44,7 @@ const ExhibitList = () => {
             key={index}
             className="flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52"
           >
-            <div className="mb-2" onClick={() => {
+            <div className="mb-2 cursor-pointer" onClick={() => {
               setShowInfo(card);
               modal.open();
             }}>{showTitle}</div>
