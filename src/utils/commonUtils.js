@@ -39,15 +39,18 @@ export function normalizeStringProperties(sourceObject) {
   @returns 디코딩된 문자열
 */
 export function sanitizeAndDecodeHtmlEntity(string) {
-  return sanitizeHtml(string, {
-    allowedTags: []
-  })
+  //트러블슈팅 먼저 HTML엔티티를 변환하고 이후에 HTML태그를 제거해야한다.
+  const htmlEntityDecoded = string
     .replace(/&gt;/g, '>')
     .replace(/&lt;/g, '<')
     .replace(/&nbsp;/g, ' ')
     .replace(/&.*?;/g, '');
 
-  //todo: html sanitizer 추가
+  const sanitized = sanitizeHtml(htmlEntityDecoded, {
+    allowedTags: []
+  });
+
+  return sanitized;
 }
 
 /**
