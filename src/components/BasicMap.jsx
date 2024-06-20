@@ -52,9 +52,9 @@ export default function BasicMap() {
   }, [map, keyword]);
 
  const { data: showsData } = useQuery({
-    queryKey: ['shows'],
+    queryKey: ['shows', keyword],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows('공주박물관');
+      const showsData = await kcisaApi.getShows(keyword);
       setShows(showsData);
       console.log('showsData', showsData,shows)
       return showsData;
@@ -63,10 +63,11 @@ export default function BasicMap() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
+    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄") || inputKeyword.includes("미술관")) {
       setKeyword(inputKeyword);
     } else {
-      alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+      alert('키워드에 "박물관, 뮤지엄, 미술관"을 포함시켜야 합니다.');
+      return;
     }
     setMuseumTitle(inputKeyword);
   };
