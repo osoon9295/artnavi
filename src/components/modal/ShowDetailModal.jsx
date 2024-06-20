@@ -1,6 +1,6 @@
+import { useModal } from './../../contexts/modal.context';
 import BackDrop from './BackDrop';
 import ShowDetail from './ShowDetail';
-import { useModal } from './../../contexts/modal.context';
 
 function ShowDetailModal() {
   const modal = useModal();

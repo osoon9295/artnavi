@@ -1,10 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
-import useKaKaoLoader from './hook/UseKakaoLoader';
-import useShowStore from '../../zustand/store';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2';
 import { kcisaApi } from '../../api/kcisa.api';
+import useShowStore from '../../zustand/store';
+import useKaKaoLoader from './hook/UseKakaoLoader';
 
 export default function BasicMap() {
   useKaKaoLoader();
@@ -12,12 +11,11 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("국립박물관");
+  const [keyword, setKeyword] = useState('국립박물관');
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState("");
+  const [inputKeyword, setInputKeyword] = useState('');
 
-  const { setShows,shows,setMuseumTitle } = useShowStore();
-
+  const { setShows, shows, setMuseumTitle } = useShowStore();
 
   useEffect(() => {
     if (!map) return;
@@ -54,12 +52,12 @@ export default function BasicMap() {
     });
   }, [map, keyword]);
 
- const { data: showsData } = useQuery({
+  const { data: showsData } = useQuery({
     queryKey: ['shows', keyword],
     queryFn: async () => {
       const showsData = await kcisaApi.getShows(keyword);
       setShows(showsData);
-      console.log('showsData', showsData,shows)
+      console.log('showsData', showsData, shows);
 
       return showsData;
     }
@@ -67,7 +65,7 @@ export default function BasicMap() {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄") || inputKeyword.includes("미술관")) {
+    if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄') || inputKeyword.includes('미술관')) {
       setKeyword(inputKeyword);
     } else {
       alert('키워드에 "박물관, 뮤지엄, 미술관"을 포함시켜야 합니다.');
@@ -78,66 +76,63 @@ export default function BasicMap() {
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
-
   };
 
   return (
     <>
-        <div className="relative">
-          <Map // 지도를 표시할 Container
-            id="map"
-            className="w-[1120px] h-[920px] overflow-hidden"
-            center={{
-              lat: 37.564214,
-              lng: 127.001699
-            }}
-            onCreate={setMap}
-          >
-            <MapTypeControl position={'TOPRIGHT'} />
-            <ZoomControl position={'RIGHT'} />
-            {markers.map((marker) => (
-              <MapMarker
-                key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-                position={marker.position}
-                onClick={() => setInfo(marker)}
-              >
-                {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
-              </MapMarker>
-            ))}
-          </Map>
-          <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
-            <div className="text-center">
-              <div>
-                <form onSubmit={handleSearch}>
-                  키워드 :{' '}
-                  <input
-                    type="text"
-                    defaultValue={keyword}
-                    onChange={handleInputChange}
-                    name="keyword"
-                    size="15"
-                    className="p-1 border"
-                    placeholder="키워드 입력"
-                  />
-                  <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
-                    검색하기
-                  </button>
-                </form>
-              </div>
+      <div className="relative">
+        <Map // 지도를 표시할 Container
+          id="map"
+          className="w-[1120px] h-[920px] overflow-hidden"
+          center={{
+            lat: 37.564214,
+            lng: 127.001699
+          }}
+          onCreate={setMap}
+        >
+          <MapTypeControl position={'TOPRIGHT'} />
+          <ZoomControl position={'RIGHT'} />
+          {markers.map((marker) => (
+            <MapMarker
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => setInfo(marker)}
+            >
+              {info && info.content === marker.content && <div style={{ color: '#000' }}>{marker.content}</div>}
+            </MapMarker>
+          ))}
+        </Map>
+        <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
+          <div className="text-center">
+            <div>
+              <form onSubmit={handleSearch}>
+                키워드 :{' '}
+                <input
+                  type="text"
+                  defaultValue={keyword}
+                  onChange={handleInputChange}
+                  name="keyword"
+                  size="15"
+                  className="p-1 border"
+                  placeholder="키워드 입력"
+                />
+                <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
+                  검색하기
+                </button>
+              </form>
             </div>
-            <hr className="my-3 border-b-2 border-solid" />
-            <ul>
-              {places.map((place, index) => (
-                <li key={index} onClick={() => 
-                setMuseumTitle(place.name)} 
-                className="mb-2 hover:cursor-pointer">
-                  <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
-                  <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
-                </li>
-              ))}
-            </ul>
           </div>
+          <hr className="my-3 border-b-2 border-solid" />
+          <ul>
+            {places.map((place, index) => (
+              <li key={index} onClick={() => setMuseumTitle(place.name)} className="mb-2 hover:cursor-pointer">
+                <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
+                <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
+              </li>
+            ))}
+          </ul>
         </div>
+      </div>
     </>
   );
 }

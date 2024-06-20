@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import useShowStore from '../../zustand/store';
+import { useMemo, useState } from 'react';
 import { createObjectByPropertyNames, normalizeStringProperties } from '../../utils/commonUtils';
+import useShowStore from '../../zustand/store';
 
 function ShowDetail() {
   const showInfo = useShowStore((state) => state.showInfo);
