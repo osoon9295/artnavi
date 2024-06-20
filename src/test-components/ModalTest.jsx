@@ -1,7 +1,7 @@
-import { useModal } from './../contexts/modal.context';
-import { kcisaApi } from './../api/kcisa.api';
 import { useEffect, useState } from 'react';
 import useShowStore from '../zustand/store';
+import { kcisaApi } from './../api/kcisa.api';
+import { useModal } from './../contexts/modal.context';
 
 function ModalTest() {
   const modal = useModal();
@@ -20,7 +20,6 @@ function ModalTest() {
 
   function setShowInfoAndOpenModal(showInfo) {
     setShowInfo(showInfo);
-    console.log('modal ↓');
     console.dir(modal);
     modal.open();
   }

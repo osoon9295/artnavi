@@ -13,7 +13,6 @@ export const kcisaApi = {
   async getShows({ title, inputKeyword }) {
     const res = await axiosInstance.get();
     const shows = res.data.response.body.items.item;
-    console.log('title,inputKeyword', title, inputKeyword);
     const filteredShows = shows.filter(
       (show) => show.CNTC_INSTT_NM.includes(title) || show.CNTC_INSTT_NM.includes(inputKeyword)
     );

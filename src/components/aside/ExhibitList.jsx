@@ -23,7 +23,6 @@ const ExhibitList = () => {
   });
 
   const setShowInfo = useShowStore((state) => state.setShowInfo);
-  console.log('clickedItem', clickedItem);
   return (
     <div className="flex flex-col items-center h-5/6">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-60">
@@ -55,7 +54,6 @@ const ExhibitList = () => {
                 onClick={() => {
                   setShowInfo(card);
                   setClickedItem(index);
-                  console.log('index', typeof index, typeof clickedItem);
                   modal.open();
                 }}
               >

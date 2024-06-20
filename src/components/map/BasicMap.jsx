@@ -131,7 +131,6 @@ export default function BasicMap() {
               <li
                 key={index}
                 onClick={() => {
-                  console.log('place', place);
                   setLocation(place), setMuseumTitle(place.name, inputKeyword), console.log('location', location);
                 }}
                 className="mb-2 hover:cursor-pointer"
