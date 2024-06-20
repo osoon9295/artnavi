@@ -83,7 +83,7 @@ export default function BasicMap() {
       <div className="relative">
         <Map // 지도를 표시할 Container
           id="map"
-          className="w-[1120px] h-screen overflow-hidden"
+          className="w-[1120px] h-full overflow-hidden"
           center={{
             lat: 37.564214,
             lng: 127.001699
