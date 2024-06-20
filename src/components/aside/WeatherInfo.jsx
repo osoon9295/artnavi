@@ -14,7 +14,7 @@ export default function WeatherInfo() {
       getWeather(lat, lon);
     });
   }, []);
-
+  
   const getWeather = async(lat, lon) => {
       try {
       const res = await axios.get(
