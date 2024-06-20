@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import { kcisaApi } from '../../api/kcisa.api';
@@ -16,6 +16,8 @@ export default function BasicMap() {
   const [inputKeyword, setInputKeyword] = useState('');
 
   const { setShows, shows, setMuseumTitle, setLocation, location } = useShowStore();
+
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!map) return;
@@ -55,14 +57,14 @@ export default function BasicMap() {
   }, [map, keyword]);
 
   const { data: showsData } = useQuery({
-    queryKey: ['shows', keyword],
+    queryKey: ['shows'],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows(keyword);
+      const showsData = await kcisaApi.getShows(setMuseumTitle);
       setShows(showsData);
-      console.log('showsData', showsData, shows);
 
       return showsData;
-    }
+    },
+    onSuccess: () => queryClient.invalidateQueries('shows')
   });
   const handleSearch = (e) => {
     e.preventDefault();
@@ -73,7 +75,6 @@ export default function BasicMap() {
       alert('키워드에 "박물관, 뮤지엄, 미술관"을 포함시켜야 합니다.');
       return;
     }
-    setMuseumTitle(inputKeyword);
   };
 
   const handleInputChange = (e) => {
@@ -130,6 +131,7 @@ export default function BasicMap() {
               <li
                 key={index}
                 onClick={() => {
+                  console.log('place', place);
                   setLocation(place), setMuseumTitle(place.name), console.log('location', location);
                 }}
                 className="mb-2 hover:cursor-pointer"

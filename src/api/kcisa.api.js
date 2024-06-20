@@ -10,10 +10,12 @@ export const kcisaApi = {
    * @param {string} museum 박물관 이름
    * @returns 해당 박물관에서 진행중인 전시들이 [{전시 내용},...]형태로 리턴댐
    */
-  async getShows(museumTitle) {
+  async getShows(museumTitle, keyword) {
     const res = await axiosInstance.get();
     const shows = res.data.response.body.items.item;
-    const filteredShows = shows.filter((show) => show.CNTC_INSTT_NM.includes(museumTitle));
+    const filteredShows = shows.filter(
+      (show) => show.CNTC_INSTT_NM.includes(museumTitle) || show.CNTC_INSTT_NM.includes(keyword)
+    );
     return filteredShows;
   }
 };

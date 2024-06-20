@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
+import { useState } from 'react';
 import { kcisaApi } from '../../api/kcisa.api';
 import { useModal } from '../../contexts/modal.context';
 import useShowStore from '../../zustand/store';
@@ -6,8 +8,8 @@ import useShowStore from '../../zustand/store';
 const ExhibitList = () => {
   const modal = useModal();
   const museumTitle = useShowStore((state) => state.museumTitle);
-
   const { setShows, shows: zustandShows } = useShowStore();
+  const [clickedItem, setClickedItem] = useState(0);
   /**
    * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
    */
@@ -21,7 +23,7 @@ const ExhibitList = () => {
   });
 
   const setShowInfo = useShowStore((state) => state.setShowInfo);
-
+  console.log('clickedItem', clickedItem);
   return (
     <div className="flex flex-col items-center h-5/6">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-60">
@@ -47,9 +49,13 @@ const ExhibitList = () => {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52"
+                className={`${clsx(
+                  index === clickedItem && 'bg-gray-200 shadow-outline'
+                )} flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52 hover:cursor-pointer`}
                 onClick={() => {
                   setShowInfo(card);
+                  setClickedItem(index);
+                  console.log('index', typeof index, typeof clickedItem);
                   modal.open();
                 }}
               >

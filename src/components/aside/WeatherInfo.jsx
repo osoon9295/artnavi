@@ -9,17 +9,12 @@ export default function WeatherInfo() {
 
   // 현재 위치
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      getWeather(lat, lon);
-    });
-  }, []);
-
-  const getWeather = async (lat, lon) => {
+    getWeather(location?.lat, location?.lng);
+  }, [location]);
+  const getWeather = async (lat, lng) => {
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`
       );
       setWeatherData(res.data);
     } catch (err) {

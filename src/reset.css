@@ -92,7 +92,13 @@ video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
+body {
+  -ms-overflow-style: none;
+}
 
+::-webkit-scrollbar {
+  display: none;
+}
 article,
 aside,
 details,
