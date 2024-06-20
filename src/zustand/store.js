@@ -16,6 +16,10 @@ const useShowStore = create((set) => ({
   museumTitle: '박물관 이름을 검색해주세요',
   setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
 
+  location: {},
+
+  setLocation: ({ lat, lng }) => set(() => ({ location: { lat: lat, lng: lng } })),
+
   modalOptions: {},
   modalOpen: (newModalOptions) => set(() => ({ modalOptions: newModalOptions })),
   modalClose: () => set(() => ({ modalOptions: null }))

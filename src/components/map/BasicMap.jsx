@@ -15,7 +15,7 @@ export default function BasicMap() {
   const [places, setPlaces] = useState([]);
   const [inputKeyword, setInputKeyword] = useState('');
 
-  const { setShows, shows, setMuseumTitle } = useShowStore();
+  const { setShows, shows, setMuseumTitle, setLocation, location } = useShowStore();
 
   useEffect(() => {
     if (!map) return;
@@ -40,7 +40,9 @@ export default function BasicMap() {
           });
           places.push({
             name: data[i].place_name,
-            address: data[i].address_name
+            address: data[i].address_name,
+            lat: data[i].y,
+            lng: data[i].x
           });
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
@@ -125,7 +127,13 @@ export default function BasicMap() {
           <hr className="my-3 border-b-2 border-solid" />
           <ul>
             {places.map((place, index) => (
-              <li key={index} onClick={() => setMuseumTitle(place.name)} className="mb-2 hover:cursor-pointer">
+              <li
+                key={index}
+                onClick={() => {
+                  setLocation(place), setMuseumTitle(place.name), console.log('location', location);
+                }}
+                className="mb-2 hover:cursor-pointer"
+              >
                 <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
                 <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
               </li>
