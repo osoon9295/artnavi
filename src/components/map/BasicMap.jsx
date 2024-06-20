@@ -12,7 +12,7 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState('국립박물관');
+  const [keyword, setKeyword] = useState('');
   const [places, setPlaces] = useState([]);
   const [inputKeyword, setInputKeyword] = useState('');
 
@@ -84,7 +84,7 @@ export default function BasicMap() {
       <div className="relative">
         <Map // 지도를 표시할 Container
           id="map"
-          className="w-[1120px] h-[920px] overflow-hidden"
+          className="w-[1120px] h-screen overflow-hidden"
           center={{
             lat: 37.564214,
             lng: 127.001699
@@ -103,7 +103,7 @@ export default function BasicMap() {
             </MapMarker>
           ))}
         </Map>
-        <div className="absolute top-0 left-0 bottom-0 w-[300px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
+        <div className="absolute top-0 left-0 bottom-0 w-[300px] h-[500px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
           <div className="text-center">
             <div>
               <form onSubmit={handleSearch}>

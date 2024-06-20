@@ -25,7 +25,7 @@ const ExhibitList = () => {
 
   return (
     <div className="flex flex-col items-center h-screen p-4">
-      <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">
+      <div className="flex flex-col w-[250px] items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">
         {museumTitle}
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-y-auto">

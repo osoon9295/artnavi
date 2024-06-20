@@ -13,7 +13,7 @@ const useShowStore = create((set) => ({
    */
   setShowInfo: (info) => set(() => ({ showInfo: info })),
 
-  museumTitle: '국립박물관',
+  museumTitle: '박물관 이름을 검색해주세요',
   setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
 
   modalOptions: {},
