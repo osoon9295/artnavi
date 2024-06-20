@@ -108,7 +108,7 @@ export default function BasicMap() {
         <div className="absolute top-0 left-0 bottom-0 w-[300px] h-[500px] my-[10px] ml-[10px] p-2.5 overflow-y-auto bg-black bg-opacity-70 z-10 text-sm rounded-lg ">
           <div className="text-center">
             <div>
-              <form onSubmit={handleSearch}>
+              <form className="text-white" onSubmit={handleSearch}>
                 키워드 :{' '}
                 <input
                   type="text"
@@ -116,7 +116,7 @@ export default function BasicMap() {
                   onChange={handleInputChange}
                   name="keyword"
                   size="15"
-                  className="p-1 border"
+                  className="p-1 text-black border"
                   placeholder="키워드 입력"
                 />
                 <button type="submit" className="p-1 ml-1 text-white bg-blue-500 rounded">
