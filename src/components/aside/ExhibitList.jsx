@@ -3,8 +3,7 @@ import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
 import { useModal } from '../../contexts/modal.context';
 
-const ExhibitList = ({inputValue}) => {
-  console.log("test", inputValue)
+const ExhibitList = () => {
   const modal = useModal();
   const museumTitle = useShowStore((state) => state.museumTitle);
   

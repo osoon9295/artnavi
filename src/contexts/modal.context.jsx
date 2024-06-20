@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import ShowDetailModal from './../components/ShowDetail/ShowDetailModal';
+import ShowDetailModal from './../components/modal/ShowDetailModal';
 
 const initalValue = {
   open: () => {},

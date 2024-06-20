@@ -1,7 +1,7 @@
 import logoImage from '/public/logo/artnavi.png';
 import BasicMap from '../components/BasicMap';
-import ExhibitList from '../components/ShowAside/ExhibitList';
-import WeatherInfo from '../components/ShowAside/WeatherInfo';
+import ExhibitList from '../components/aside/ExhibitList';
+import WeatherInfo from '../components/aside/WeatherInfo';
 
 export default function Layout() {
   

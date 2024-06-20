@@ -33,8 +33,8 @@ export default function WeatherInfo() {
     if (!weatherData) {
         return (
           <div className="flex flex-col">
-            <span className='flex items-center m-1'>현재 날씨: Loading...</span>
-            <span className='m-1'>온도: Loading...</span>
+            <span className='flex items-center m-1'>현재 날씨: 로딩 중...</span>
+            <span className='m-1'>온도: 로딩 중...</span>
           </div>
       )
     }
