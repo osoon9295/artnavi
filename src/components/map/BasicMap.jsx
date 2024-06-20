@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import useKaKaoLoader from '../kakao/useKaKaoLoader';
-import useShowStore from '../zustand/store';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
+import useKaKaoLoader from './hook/UseKakaoLoader';
+import useShowStore from '../../zustand/store';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
+import { kcisaApi } from '../../api/kcisa.api';
 
 export default function BasicMap() {
   useKaKaoLoader();
@@ -9,10 +12,12 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("서울 박물관");
+  const [keyword, setKeyword] = useState("국립박물관");
   const [places, setPlaces] = useState([]);
-  const [inputKeyword, setInputKeyword] = useState("서울 박물관");
-  const { setMuseumTitle } = useShowStore();
+  const [inputKeyword, setInputKeyword] = useState("");
+
+  const { setShows,shows,setMuseumTitle } = useShowStore();
+
 
   useEffect(() => {
     if (!map) return;
@@ -49,19 +54,31 @@ export default function BasicMap() {
     });
   }, [map, keyword]);
 
+ const { data: showsData } = useQuery({
+    queryKey: ['shows', keyword],
+    queryFn: async () => {
+      const showsData = await kcisaApi.getShows(keyword);
+      setShows(showsData);
+      console.log('showsData', showsData,shows)
+
+      return showsData;
+    }
+  });
   const handleSearch = (e) => {
     e.preventDefault();
 
-    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄")) {
+    if(inputKeyword.includes("박물관") || inputKeyword.includes("뮤지엄") || inputKeyword.includes("미술관")) {
       setKeyword(inputKeyword);
     } else {
-      alert('키워드에 "박물관, 뮤지엄"을 포함시켜야 합니다.');
+      alert('키워드에 "박물관, 뮤지엄, 미술관"을 포함시켜야 합니다.');
+      return;
     }
     setMuseumTitle(inputKeyword);
   };
 
   const handleInputChange = (e) => {
     setInputKeyword(e.target.value);
+
   };
 
   return (
@@ -76,6 +93,8 @@ export default function BasicMap() {
             }}
             onCreate={setMap}
           >
+            <MapTypeControl position={'TOPRIGHT'} />
+            <ZoomControl position={'RIGHT'} />
             {markers.map((marker) => (
               <MapMarker
                 key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
@@ -109,7 +128,9 @@ export default function BasicMap() {
             <hr className="my-3 border-b-2 border-solid" />
             <ul>
               {places.map((place, index) => (
-                <li key={index} className="mb-2">
+                <li key={index} onClick={() => 
+                setMuseumTitle(place.name)} 
+                className="mb-2 hover:cursor-pointer">
                   <div className="p-2 mb-1 text-white border border-black rounded-md">{place.name}</div>
                   <div className="text-gray-400 h-[40px] border-b-2 border-solid">{place.address}</div>
                 </li>

@@ -11,10 +11,11 @@ const ExhibitList = () => {
   /**
    * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
    */
-  const { data: shows } = useQuery({
-    queryKey: ['shows'],
+  const { data: shows, isLoading: queryLoading} = useQuery({
+    queryKey: ['shows', museumTitle],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows("제주");
+      const showsData = await kcisaApi.getShows(museumTitle);
+>>>>>>> 6d1bfadbaeee83c484594ec35deac7ca963cb64a
       setShows(showsData);
       return showsData;
     }
@@ -28,29 +29,36 @@ const ExhibitList = () => {
         {museumTitle}
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-y-auto">
-        {shows?.map((card, index) => {
-        const {
-                CNTC_INSTT_NM: institutionName,
-                EVENT_SITE: eventSite,
-                TITLE: showTitle,
-                EVENT_PERIOD: eventPeriod,
-                DESCRIPTION: description,
-                IMAGE_OBJECT: postImgUrl,
-                URL: officialUrl
-              } = card;
-          return (
-          <div
-            key={index}
-            className="flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52"
-          >
-            <div className="mb-2 cursor-pointer" onClick={() => {
-              setShowInfo(card);
-              modal.open();
-            }}>{showTitle}</div>
-          </div>
-          )
-        
-        })}
+        {queryLoading ? (
+          <div className="mt-6 text-2xl text-black">로딩 중...</div>
+        ) : shows?.length === 0 ? (
+          <div className="mt-6 text-2xl text-black">데이터가 없습니다.</div>
+        ) : (
+          /* 카드에 호버효과넣기 */
+          shows?.map((card, index) => {
+            const {
+              CNTC_INSTT_NM: institutionName,
+              EVENT_SITE: eventSite,
+              TITLE: showTitle,
+              EVENT_PERIOD: eventPeriod,
+              DESCRIPTION: description,
+              IMAGE_OBJECT: postImgUrl,
+              URL: officialUrl
+            } = card;
+            return (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52"
+                onClick={() => {
+                  setShowInfo(card);
+                  modal.open();
+                }}
+              >
+                <div className="mb-2">{showTitle}</div>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

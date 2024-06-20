@@ -1,14 +1,12 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 const useShowStore = create(
-  persist(
     (set) => ({
       shows: [],
       /**
        * @param {shows[]} shows 전시 목록 입력
        */
-      setShows: (shows) => set((state) => (state.shows = [...shows])),
+      setShows: (totalShows) => set(() => ({shows : totalShows})),
 
       showInfo: {},
       /**
@@ -16,20 +14,14 @@ const useShowStore = create(
        */
       setShowInfo: (info) => set(() => ({ showInfo: info })),
 
-      museumTitle: "박물관을 선택해주세요.",
+      museumTitle: "국립박물관",
       setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
 
 
       modalOptions: {},
       modalOpen: (newModalOptions) => set(() => ({ modalOptions: newModalOptions })),
       modalClose: () => set(() => ({ modalOptions: null }))
-    }),
-
-    {
-      name: 'my-storage',
-      getStorage: () => localStorage
-    }
-  )
+    })
 );
 
 export default useShowStore;

@@ -1,5 +1,5 @@
 import logoImage from '/public/logo/artnavi.png';
-import BasicMap from '../components/BasicMap';
+import BasicMap from '../components/map/BasicMap';
 import ExhibitList from '../components/aside/ExhibitList';
 import WeatherInfo from '../components/aside/WeatherInfo';
 
