@@ -49,7 +49,7 @@ const ExhibitList = () => {
               <div
                 key={index}
                 className={`${clsx(
-                  index === clickedItem && 'bg-gray-200 shadow-outline'
+                  index === clickedItem && 'bg-gray-300 shadow-outline'
                 )} flex flex-col items-center justify-center p-4 m-2 text-center bg-white border border-gray-300 rounded-lg shadow-md h-36 w-52 hover:cursor-pointer`}
                 onClick={() => {
                   setShowInfo(card);
