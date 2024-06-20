@@ -15,7 +15,7 @@ export default function Layout() {
           </header>
           <ExhibitList />
           <footer>
-            <p className="text-center text-green-500">@2024 all rights reserved</p>
+            <p className="text-center text-green-500 ">@2024 all rights reserved</p>
           </footer>
         </div>
         <BasicMap />

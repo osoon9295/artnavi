@@ -33,7 +33,7 @@ export default function WeatherInfo() {
     if (!weatherData) {
         return (
           <div className="flex flex-col">
-            <span className='m-1'>현재 날씨: Loading...</span>
+            <span className='flex items-center m-1'>현재 날씨: Loading...</span>
             <span className='m-1'>온도: Loading...</span>
           </div>
       )
@@ -44,13 +44,10 @@ export default function WeatherInfo() {
     const temperature = Math.round(main.temp);;
     const weatherIcon = weather[0].icon;
     const weatherIconSrc = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
-
-    console.log(weatherData)
-    console.log(weatherIcon)
     
     return (
     <div className="flex flex-col">
-      {/* <span className='m-1'>현재 날씨: <img src={weatherIconSrc} /></span> */}
+      <span className='flex items-center m-1 w-10px h-10px'>현재 날씨: <img src={weatherIconSrc} className='h-9 w-9' /></span>
       <span className='m-1'>온도: {temperature}°C</span>
     </div>
     );
