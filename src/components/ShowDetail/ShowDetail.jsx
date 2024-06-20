@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import useShowStore from '../../zustand/store';
-import { createObjectByPropertyNames, decodeHTMLEntityFromObject } from '../../utils/commonUtils';
+import { createObjectByPropertyNames, normalizeStringProperties } from '../../utils/commonUtils';
 
 function ShowDetail() {
   const showInfo = useShowStore((state) => state.showInfo);
@@ -17,7 +17,7 @@ function ShowDetail() {
 
   const selectedShowInfo = useMemo(() => createObjectByPropertyNames(showInfo, propertyNamesToSelect), []);
 
-  const htmlEntityDecodedShowInfo = useMemo(() => decodeHTMLEntityFromObject(selectedShowInfo), [selectedShowInfo]);
+  const htmlEntityDecodedShowInfo = useMemo(() => normalizeStringProperties(selectedShowInfo), [selectedShowInfo]);
 
   const {
     CNTC_INSTT_NM: institutionName,
@@ -39,7 +39,7 @@ function ShowDetail() {
     <section className="block">
       <h1 className="mb-4 text-2xl font-bold text-center ">{showTitle}</h1>
 
-      {isPostImgLoadable ? (
+      {postImgUrl && isPostImgLoadable ? (
         <img
           src={postImgUrl}
           onError={handlePostImgError}
