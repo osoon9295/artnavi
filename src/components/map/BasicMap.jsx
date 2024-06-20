@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
+import Swal from 'sweetalert2';
 import { kcisaApi } from '../../api/kcisa.api';
 import useShowStore from '../../zustand/store';
 import useKaKaoLoader from './hook/UseKakaoLoader';
@@ -72,7 +73,10 @@ export default function BasicMap() {
     if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄') || inputKeyword.includes('미술관')) {
       setKeyword(inputKeyword);
     } else {
-      alert('키워드에 "박물관, 뮤지엄, 미술관"을 포함시켜야 합니다.');
+      Swal.fire({
+        title: '박물관, 뮤지엄, 미술관을 포함하여 검색하셔야 합니다.',
+        icon: 'warning'
+      });
       return;
     }
   };
