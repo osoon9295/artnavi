@@ -13,8 +13,8 @@ const useShowStore = create((set) => ({
    */
   setShowInfo: (info) => set(() => ({ showInfo: info })),
 
-  museumTitle: '박물관 이름을 검색해주세요',
-  setMuseumTitle: (museum) => set(() => ({ museumTitle: museum })),
+  museumTitle: { title: '박물관 이름을 검색해주세요', inputKeyword: '' },
+  setMuseumTitle: (museum, inputKeyword) => set(() => ({ museumTitle: { title: museum, inputKeyword: inputKeyword } })),
 
   location: {},
 

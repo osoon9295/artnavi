@@ -15,7 +15,7 @@ export default function BasicMap() {
   const [places, setPlaces] = useState([]);
   const [inputKeyword, setInputKeyword] = useState('');
 
-  const { setShows, shows, setMuseumTitle, setLocation, location } = useShowStore();
+  const { setShows, shows, museumTitle, setMuseumTitle, setLocation, location } = useShowStore();
 
   const queryClient = useQueryClient();
 
@@ -59,7 +59,7 @@ export default function BasicMap() {
   const { data: showsData } = useQuery({
     queryKey: ['shows'],
     queryFn: async () => {
-      const showsData = await kcisaApi.getShows(setMuseumTitle);
+      const showsData = await kcisaApi.getShows(museumTitle);
       setShows(showsData);
 
       return showsData;
@@ -132,7 +132,7 @@ export default function BasicMap() {
                 key={index}
                 onClick={() => {
                   console.log('place', place);
-                  setLocation(place), setMuseumTitle(place.name), console.log('location', location);
+                  setLocation(place), setMuseumTitle(place.name, inputKeyword), console.log('location', location);
                 }}
                 className="mb-2 hover:cursor-pointer"
               >
