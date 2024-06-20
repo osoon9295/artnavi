@@ -16,7 +16,7 @@ export function createObjectByPropertyNames(sourceObject, propertyNames) {
 /**
   객체의 문자열 데이터 중 HTML Entity가 사용된 문자열을 디코딩하여 
   새로운 객체로 반환합니다.
-  @param {string} string 디코딩할 객체
+  @param {string} sourceObject 디코딩할 객체
   @returns 디코딩된 새로운 객체
 */
 export function decodeHTMLEntityFromObject(sourceObject) {
@@ -36,7 +36,7 @@ export function decodeHTMLEntityFromObject(sourceObject) {
   @returns 디코딩된 문자열
 */
 export function decodeHTMLEntity(string) {
-  unnecessaryHTMLEntityRemovedStr string
+  return string
     .replace(/&gt;/g, '>')
     .replace(/&lt;/g, '<')
     .replace(/&nbsp;/g, ' ')
