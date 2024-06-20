@@ -15,7 +15,6 @@ const ExhibitList = () => {
     queryKey: ['shows', museumTitle],
     queryFn: async () => {
       const showsData = await kcisaApi.getShows(museumTitle);
->>>>>>> 6d1bfadbaeee83c484594ec35deac7ca963cb64a
       setShows(showsData);
       return showsData;
     }
@@ -24,7 +23,7 @@ const ExhibitList = () => {
   const setShowInfo = useShowStore((state) => state.setShowInfo);
   
   return (
-    <div className="flex flex-col items-center h-screen p-4">
+    <div className="flex flex-col items-center p-4 h-4/5">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">
         {museumTitle}
       </div>
