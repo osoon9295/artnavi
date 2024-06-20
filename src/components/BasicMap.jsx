@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKaKaoLoader from '../kakao/useKaKaoLoader';
-import MapAside from './Main/MapAside';
 import useShowStore from '../zustand/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -11,7 +10,7 @@ export default function BasicMap() {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const [keyword, setKeyword] = useState("서울 박물관");
+  const [keyword, setKeyword] = useState('서울 박물관');
   const [places, setPlaces] = useState([]);
   const [inputKeyword, setInputKeyword] = useState("서울 박물관");
   const { setShows,shows,setMuseumTitle } = useShowStore();
@@ -79,8 +78,6 @@ export default function BasicMap() {
 
   return (
     <>
-      <div className="w-[1440px] h-[920px] flex m-auto">
-        <MapAside />
         <div className="relative">
           <Map // 지도를 표시할 Container
             id="map"
@@ -91,6 +88,8 @@ export default function BasicMap() {
             }}
             onCreate={setMap}
           >
+            <MapTypeControl position={'TOPRIGHT'} />
+            <ZoomControl position={'RIGHT'} />
             {markers.map((marker) => (
               <MapMarker
                 key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
@@ -132,7 +131,6 @@ export default function BasicMap() {
             </ul>
           </div>
         </div>
-      </div>
     </>
   );
 }
