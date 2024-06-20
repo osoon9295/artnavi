@@ -54,16 +54,6 @@ export default function BasicMap() {
     });
   }, [map, keyword]);
 
- const { data: showsData } = useQuery({
-    queryKey: ['shows', keyword],
-    queryFn: async () => {
-      const showsData = await kcisaApi.getShows(keyword);
-      setShows(showsData);
-      console.log('showsData', showsData,shows)
-
-      return showsData;
-    }
-  });
   const handleSearch = (e) => {
     e.preventDefault();
 
