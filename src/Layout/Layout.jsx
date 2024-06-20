@@ -4,7 +4,6 @@ import ExhibitList from '../components/aside/ExhibitList';
 import WeatherInfo from '../components/aside/WeatherInfo';
 
 export default function Layout() {
-  
   return (
     <>
       <div className="w-[1440px] h-[920px] flex m-auto">

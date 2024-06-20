@@ -7,12 +7,12 @@ import { useState } from 'react';
 const ExhibitList = () => {
   const modal = useModal();
   const museumTitle = useShowStore((state) => state.museumTitle);
-  
+
   const { setShows, shows: zustandShows } = useShowStore();
   /**
    * @return {string[]} 박물관 데이터가 배열에 담겨서 객체형식으로 리턴
    */
-  const { data: shows, isLoading: queryLoading} = useQuery({
+  const { data: shows, isLoading: queryLoading } = useQuery({
     queryKey: ['shows', museumTitle],
     queryFn: async () => {
       const showsData = await kcisaApi.getShows(museumTitle);
@@ -22,7 +22,7 @@ const ExhibitList = () => {
   });
 
   const setShowInfo = useShowStore((state) => state.setShowInfo);
-  
+
   return (
     <div className="flex flex-col items-center h-screen p-4">
       <div className="flex flex-col items-center justify-center p-4 m-2 text-center text-white bg-green-500 border border-gray-300 rounded-lg shadow-md w-52">
