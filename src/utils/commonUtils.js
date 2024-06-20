@@ -1,3 +1,5 @@
+import sanitizeHtml from 'sanitize-html';
+
 /** 
   객체에서 특정 프로퍼티만을 추출하여
   새로운 객체를 반환합니다
@@ -16,13 +18,13 @@ export function createObjectByPropertyNames(sourceObject, propertyNames) {
 /**
   객체의 문자열 데이터 중 HTML Entity가 사용된 문자열을 디코딩하여 
   새로운 객체로 반환합니다.
-  @param {string} string 디코딩할 객체
+  @param {string} sourceObject 디코딩할 객체
   @returns 디코딩된 새로운 객체
 */
-export function decodeHTMLEntityFromObject(sourceObject) {
+export function normalizeStringProperties(sourceObject) {
   return applyToAllProperty({ ...sourceObject }, (value) => {
     if (typeof value === 'string') {
-      return decodeHTMLEntity(value);
+      return sanitizeAndDecodeHtmlEntity(value);
     } else {
       return value;
     }
@@ -30,13 +32,22 @@ export function decodeHTMLEntityFromObject(sourceObject) {
 }
 
 /**
-  문자열에서 HTML Entity가 사용된 부분을 디코딩하여
-  반환합니다.
+  문자열에서 먼저 HTML Tag를 제거합니다. (ex: <span>전시</span => 전시)
+  그리고 HTML Entity가 사용된 부분을 디코딩합니다. (ex: &gt; => >)
+
   @param {string} string 디코딩을 적용한 문자열
   @returns 디코딩된 문자열
 */
-export function decodeHTMLEntity(string) {
-  return string.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+export function sanitizeAndDecodeHtmlEntity(string) {
+  return sanitizeHtml(string, {
+    allowedTags: []
+  })
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&.*?;/g, '');
+
+  //todo: html sanitizer 추가
 }
 
 /**
