@@ -72,6 +72,7 @@ export default function BasicMap() {
 
     if (inputKeyword.includes('박물관') || inputKeyword.includes('뮤지엄') || inputKeyword.includes('미술관')) {
       setKeyword(inputKeyword);
+      setInputKeyword(inputKeyword.split(' ').join(''));
     } else {
       Swal.fire({
         title: '박물관, 뮤지엄, 미술관을 포함하여 검색하셔야 합니다.',
@@ -135,7 +136,9 @@ export default function BasicMap() {
               <li
                 key={index}
                 onClick={() => {
-                  setLocation(place), setMuseumTitle(place.name, inputKeyword), console.log('location', location);
+                  setLocation(place),
+                    setMuseumTitle(place.name, inputKeyword.split(' ').join('')),
+                    console.log('location', location);
                 }}
                 className="mb-2 hover:cursor-pointer"
               >
