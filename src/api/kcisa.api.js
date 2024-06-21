@@ -15,9 +15,11 @@ export const kcisaApi = {
     try {
       const res = await axiosInstance.get();
       const shows = res.data.response.body.items.item;
-      const filteredShows = shows.filter(
-        (show) => show.CNTC_INSTT_NM.includes(title) || show.CNTC_INSTT_NM.includes(inputKeyword)
-      );
+      const filteredShows = shows.filter((show) => show.CNTC_INSTT_NM.includes(title));
+      if (filteredShows.length === 0) {
+        const newFilteredShow = shows.filter((show) => show.CNTC_INSTT_NM.includes(inputKeyword));
+        return newFilteredShow;
+      }
       return filteredShows;
     } catch (error) {
       Swal.fire({
